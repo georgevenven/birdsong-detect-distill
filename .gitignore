@@ -8,3 +8,6 @@ data/birdcode/
 data/annotations/xcl/XCL_train_annotations.json
 artifacts/trained/
 models/*.pt
+data/yolo/
+artifacts/yolo/
+weights/

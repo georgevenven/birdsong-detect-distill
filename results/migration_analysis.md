@@ -12,15 +12,20 @@ The recording-disjoint split contained 1,655 training windows and 691 validation
 | Powdermill | previous SongMAE 32×4 | 0.946 | 0.240 | 0.115 |
 | Powdermill | portable SongMAE 32×1 | 0.941 | 0.218 | 0.102 |
 | Powdermill | BirdBox YOLO11n, unchanged | 0.876 | 0.227 | 0.096 |
+| Powdermill | BirdBox YOLO11n + Qwen | 0.904 | 0.236 | 0.100 |
 | XCSL | BirdCODE | 0.840 | 0.626 | 0.418 |
 | XCSL | previous SongMAE 32×4 | 0.889 | 0.736 | 0.577 |
 | XCSL | portable SongMAE 32×1 | 0.892 | 0.730 | 0.578 |
 | XCSL | BirdBox YOLO11n, unchanged | 0.647 | 0.539 | 0.262 |
+| XCSL | BirdBox YOLO11n + Qwen | 0.740 | 0.557 | 0.294 |
 | WABAD site macro | BirdCODE | 0.830 | 0.284 | 0.122 |
 | WABAD site macro | previous SongMAE 32×4 | 0.832 | 0.257 | 0.120 |
 | WABAD site macro | portable SongMAE 32×1 | 0.826 | 0.243 | 0.110 |
 | WABAD site macro | BirdBox YOLO11n, unchanged | 0.770 | 0.254 | 0.098 |
+| WABAD site macro | BirdBox YOLO11n + Qwen | 0.782 | 0.241 | 0.097 |
 
 The Large 32×1 reproduction is within 0.005 frame AP and 0.014 strict event AP of the previous local 32×4 detector on Powdermill. On XCSL, strict event AP differs by less than 0.001. WABAD differs by 0.006 frame AP and 0.010 strict event AP. This is a close, but not numerically identical, reproduction because both the Hugging Face backbone variant and patch geometry changed.
 
 BirdBox uses the authors' released Singapore-trained YOLO11n checkpoint without fine-tuning. Evaluation preserves its 0.15 confidence floor and 0.7 NMS IoU. It is competitive with BirdCODE for Powdermill event localization and slightly exceeds SongMAE at loose WABAD event overlap, but transfers substantially worse on XCSL and trails SongMAE under strict overlap.
+
+Fine-tuning BirdBox on 1,655 reviewed Qwen windows improved transfer on Powdermill and XCSL. Its largest gain was XCSL frame AP, from 0.647 to 0.740. WABAD frame AP improved from 0.770 to 0.782, while event AP did not improve. The released initialization converged in 18 epochs and scored 0.330 box mAP50 on the recording-disjoint Qwen validation set. Random initialization required all 50 epochs and scored 0.328. On Powdermill it scored 0.895/0.240/0.096, versus 0.904/0.236/0.100 from BirdBox initialization, so the released initialization is retained as the default.

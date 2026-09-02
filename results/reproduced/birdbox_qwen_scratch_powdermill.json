@@ -1,0 +1,12 @@
+{
+  "model": "artifacts/yolo11n-qwen-scratch.pt",
+  "initialization": "random_yolo11n",
+  "fine_tuned": false,
+  "teacher": "Qwen3.8-27B-Q8_0",
+  "dataset": "powdermill",
+  "task": "binary_any_bird_detection",
+  "files": 77,
+  "frame_ap": 0.8949142264639918,
+  "event_ap_iou_0.2": 0.2402756083840903,
+  "event_ap_iou_0.5": 0.09556583918743763
+}

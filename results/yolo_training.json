@@ -1,0 +1,20 @@
+{
+  "teacher": "Qwen3.8-27B-Q8_0",
+  "image": [2048, 512],
+  "train": {"windows": 1655, "recordings": 218, "boxes": 8472},
+  "validation": {"windows": 691, "recordings": 72, "boxes": 3517},
+  "birdbox_initialization": {
+    "best_epoch": 18,
+    "box_map_50": 0.33097,
+    "box_map_50_95": 0.12831,
+    "checkpoint": "artifacts/yolo11n-qwen-birdbox-init.pt",
+    "sha256": "4fcb10c43465d879448fd2db6f235b447210b240596fd697c1db2d634b24c198"
+  },
+  "random_initialization": {
+    "best_epoch": 50,
+    "box_map_50": 0.32813,
+    "box_map_50_95": 0.12169,
+    "checkpoint": "artifacts/yolo11n-qwen-scratch.pt",
+    "sha256": "36663ae19de8acb625d8dd03c6f27582e92e853a3c0a72ccdf1a27536f3dd4de"
+  }
+}

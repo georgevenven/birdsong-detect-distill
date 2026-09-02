@@ -1,0 +1,12 @@
+{
+  "model": "artifacts/yolo11n-qwen-birdbox-init.pt",
+  "initialization": "released_birdbox_yolo11n",
+  "fine_tuned": true,
+  "teacher": "Qwen3.8-27B-Q8_0",
+  "dataset": "xcsl",
+  "task": "binary_any_bird_detection",
+  "files": 967,
+  "frame_ap": 0.7402195454067255,
+  "event_ap_iou_0.2": 0.5570917143766739,
+  "event_ap_iou_0.5": 0.29374174185779095
+}

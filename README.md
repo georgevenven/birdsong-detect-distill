@@ -53,6 +53,18 @@ python scripts/evaluate_birdbox.py --dataset xcsl
 
 The script downloads the official checkpoint, verifies its SHA-256, and reproduces BirdBox's six-second 1024-pixel spectrogram pipeline and default inference settings.
 
+## Distill into YOLO11n
+
+Render the reviewed five-second Qwen windows, then fine-tune the released BirdBox checkpoint:
+
+```bash
+python scripts/prepare_yolo.py --shard-dir /path/to/XCL/shards
+python scripts/train_yolo.py
+python scripts/evaluate_qwen_yolo.py --dataset xcsl
+```
+
+Pass `--scratch` to train the identical YOLO11n architecture from random initialization. Images are split by recording, and `target_vocalization`, `uncertain_vocalization`, and `chorus` are collapsed into one `bird` class.
+
 WABAD can be divided by site with `--shards N --shard-index I`. Merge its JSON shards, and their adjacent raw-counter `.npz` files, with:
 
 ```bash
