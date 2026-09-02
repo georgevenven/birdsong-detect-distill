@@ -1,0 +1,38 @@
+{
+  "model": "birdcode",
+  "dataset": "xcaj",
+  "task": "binary_any_bird_detection",
+  "files": 967,
+  "thresholds": 101,
+  "frame_rate_hz": 100,
+  "merge_gap_seconds": 1,
+  "frame_ap": 0.8399954643360519,
+  "event_ap_iou_0.2": 0.6260053548185406,
+  "event_ap_iou_0.5": 0.4181074259742736,
+  "threshold_0.5": {
+    "frame": {
+      "precision": 0.7353630211663253,
+      "recall": 0.8036676607544603,
+      "f1": 0.7679996064646251,
+      "tp": 1904702,
+      "fp": 685450,
+      "fn": 465310
+    },
+    "event_iou_0.2": {
+      "precision": 0.6947988223748773,
+      "recall": 0.8176463794895484,
+      "f1": 0.7512334871876494,
+      "tp": 7080,
+      "fp": 3110,
+      "fn": 1579
+    },
+    "event_iou_0.5": {
+      "precision": 0.5612365063788027,
+      "recall": 0.6604688763136621,
+      "f1": 0.6068226431110404,
+      "tp": 5719,
+      "fp": 4471,
+      "fn": 2940
+    }
+  }
+}

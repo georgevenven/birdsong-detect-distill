@@ -1,0 +1,38 @@
+{
+  "model": "songmae",
+  "dataset": "powdermill",
+  "task": "binary_any_bird_detection",
+  "files": 77,
+  "thresholds": 101,
+  "frame_rate_hz": 100,
+  "merge_gap_seconds": 1,
+  "frame_ap": 0.9460829167010515,
+  "event_ap_iou_0.2": 0.24026877895971677,
+  "event_ap_iou_0.5": 0.11543417557427861,
+  "threshold_0.5": {
+    "frame": {
+      "precision": 0.9875036097765877,
+      "recall": 0.24780147422607743,
+      "f1": 0.3961852881124928,
+      "tp": 376150,
+      "fp": 4760,
+      "fn": 1141799
+    },
+    "event_iou_0.2": {
+      "precision": 0.8355455568053993,
+      "recall": 0.23137303762770994,
+      "f1": 0.3623944967556228,
+      "tp": 3714,
+      "fp": 731,
+      "fn": 12338
+    },
+    "event_iou_0.5": {
+      "precision": 0.5934758155230596,
+      "recall": 0.16434089210067282,
+      "f1": 0.25740352246670245,
+      "tp": 2638,
+      "fp": 1807,
+      "fn": 13414
+    }
+  }
+}

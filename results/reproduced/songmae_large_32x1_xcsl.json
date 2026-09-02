@@ -1,0 +1,9 @@
+{
+  "model": "georgeven/songmae-large-32x1",
+  "dataset": "xcsl",
+  "task": "binary_any_bird_detection",
+  "files": 967,
+  "frame_ap": 0.8924673829180623,
+  "event_ap_iou_0.2": 0.7299627968778689,
+  "event_ap_iou_0.5": 0.5775479753165336
+}

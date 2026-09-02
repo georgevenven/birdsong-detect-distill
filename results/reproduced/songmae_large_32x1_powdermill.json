@@ -1,0 +1,9 @@
+{
+  "model": "georgeven/songmae-large-32x1",
+  "dataset": "powdermill",
+  "task": "binary_any_bird_detection",
+  "files": 77,
+  "frame_ap": 0.9410582860023825,
+  "event_ap_iou_0.2": 0.21817297498246482,
+  "event_ap_iou_0.5": 0.1017757853214282
+}

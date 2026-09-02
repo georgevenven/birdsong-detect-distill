@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.venv/
+.cache/
+*.egg-info/
+data/xcl/shards/
+data/birdcode/
+data/annotations/xcl/XCL_train_annotations.json
+artifacts/trained/
