@@ -7,3 +7,4 @@ data/xcl/shards/
 data/birdcode/
 data/annotations/xcl/XCL_train_annotations.json
 artifacts/trained/
+models/*.pt

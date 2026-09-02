@@ -45,6 +45,14 @@ python scripts/evaluate_birdcode.py --dataset wabad
 Evaluation collapses every species into one `bird` class. It follows BirdCODE's 101-threshold, 100 Hz, one-second event merging, Pascal-VOC AP, and IoU 0.2/0.5 protocol. WABAD is macro-averaged across 68 sites.
 The paper used for the protocol is preserved at `docs/papers/BirdCODE.pdf`.
 
+Evaluate the released BirdBox YOLO11n checkpoint without training:
+
+```bash
+python scripts/evaluate_birdbox.py --dataset xcsl
+```
+
+The script downloads the official checkpoint, verifies its SHA-256, and reproduces BirdBox's six-second 1024-pixel spectrogram pipeline and default inference settings.
+
 WABAD can be divided by site with `--shards N --shard-index I`. Merge its JSON shards, and their adjacent raw-counter `.npz` files, with:
 
 ```bash

@@ -1,0 +1,11 @@
+{
+  "model": "org-arl/birdwatch-public:yolo11n.pt",
+  "fine_tuned": false,
+  "dataset": "xcsl",
+  "task": "binary_any_bird_detection",
+  "files": 967,
+  "confidence_floor": 0.15,
+  "frame_ap": 0.6465568757929735,
+  "event_ap_iou_0.2": 0.5391899516010218,
+  "event_ap_iou_0.5": 0.26199795653560015
+}

@@ -23,6 +23,7 @@ def main():
         "files": sum(x["files"] for x in documents), **metrics(frame, event),
         "site_macro": {key: float(np.mean([score[key] for score in per_site.values()])) for key in next(iter(per_site.values()))},
         "sites": len(per_site), "per_site": per_site}
+    result.update({key: documents[0][key] for key in ("fine_tuned", "confidence_floor") if key in documents[0]})
     args.out.write_text(json.dumps(result, indent=2) + "\n")
     np.savez(args.out.with_suffix(".npz"), frame=frame, event_02=event[.2], event_05=event[.5])
     print(json.dumps(result, indent=2))
