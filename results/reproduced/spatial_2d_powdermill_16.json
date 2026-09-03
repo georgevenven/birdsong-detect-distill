@@ -1,0 +1,40 @@
+{
+  "dataset": "powdermill",
+  "files": 16,
+  "coordinate_space": "time_seconds_x_mel_frequency",
+  "thresholds": 51,
+  "models": {
+    "yolo11n_qwen": {
+      "ap_iou_0.2": 0.1432110056295287,
+      "ap_iou_0.5": 0.01626947853123295,
+      "best_f1_iou_0.2": {
+        "f1": 0.26059470849918054,
+        "precision": 0.1931285788651744,
+        "recall": 0.4005037783375315,
+        "threshold": 0.12
+      },
+      "best_f1_iou_0.5": {
+        "f1": 0.0603290676416819,
+        "precision": 0.042026319513230506,
+        "recall": 0.10687297589060814,
+        "threshold": 0.1
+      }
+    },
+    "songmae_large_32x1": {
+      "ap_iou_0.2": 0.2727347469903634,
+      "ap_iou_0.5": 0.09143332568069111,
+      "best_f1_iou_0.2": {
+        "f1": 0.4349015317286652,
+        "precision": 0.9064994298745724,
+        "recall": 0.28607412738395105,
+        "threshold": 0.0
+      },
+      "best_f1_iou_0.5": {
+        "f1": 0.24124726477024072,
+        "precision": 0.5028506271379704,
+        "recall": 0.15869017632241814,
+        "threshold": 0.0
+      }
+    }
+  }
+}

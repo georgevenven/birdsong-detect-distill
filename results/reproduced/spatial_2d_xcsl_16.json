@@ -1,0 +1,40 @@
+{
+  "dataset": "xcsl",
+  "files": 16,
+  "coordinate_space": "time_seconds_x_mel_frequency",
+  "thresholds": 51,
+  "models": {
+    "yolo11n_qwen": {
+      "ap_iou_0.2": 0.2602583939832027,
+      "ap_iou_0.5": 0.15494802262499263,
+      "best_f1_iou_0.2": {
+        "f1": 0.3389830508474576,
+        "precision": 0.2247191011235955,
+        "recall": 0.6896551724137931,
+        "threshold": 0.28
+      },
+      "best_f1_iou_0.5": {
+        "f1": 0.24905660377358493,
+        "precision": 0.1853932584269663,
+        "recall": 0.3793103448275862,
+        "threshold": 0.34
+      }
+    },
+    "songmae_large_32x1": {
+      "ap_iou_0.2": 0.8524009230978052,
+      "ap_iou_0.5": 0.625429664077636,
+      "best_f1_iou_0.2": {
+        "f1": 0.8333333333333334,
+        "precision": 0.8064516129032258,
+        "recall": 0.8620689655172413,
+        "threshold": 0.78
+      },
+      "best_f1_iou_0.5": {
+        "f1": 0.7111111111111111,
+        "precision": 0.6881720430107527,
+        "recall": 0.735632183908046,
+        "threshold": 0.78
+      }
+    }
+  }
+}

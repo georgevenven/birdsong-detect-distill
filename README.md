@@ -65,6 +65,12 @@ python scripts/evaluate_qwen_yolo.py --dataset xcsl
 
 Pass `--scratch` to train the identical YOLO11n architecture from random initialization. Images are split by recording, and `target_vocalization`, `uncertain_vocalization`, and `chorus` are collapsed into one `bird` class.
 
+For a direct human-box comparison of YOLO and SongMAE in time-frequency space:
+
+```bash
+python scripts/evaluate_2d.py --dataset powdermill --root /path/to/birdcode/raw
+```
+
 WABAD can be divided by site with `--shards N --shard-index I`. Merge its JSON shards, and their adjacent raw-counter `.npz` files, with:
 
 ```bash
