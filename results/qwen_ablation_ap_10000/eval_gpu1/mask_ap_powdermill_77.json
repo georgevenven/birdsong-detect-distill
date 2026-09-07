@@ -1,0 +1,99 @@
+{
+  "dataset": "powdermill",
+  "files": 77,
+  "metrics": [
+    "temporal_ap",
+    "mask_ap_2d"
+  ],
+  "aggregation": "recording_mean",
+  "prediction_representation": "raw_probability_union_mask",
+  "primary_postprocessing": "none",
+  "probability_bins": 4096,
+  "coordinate_space": "200_hz_time_x_128_mel_frequency",
+  "models": {
+    "reasoning-s100": {
+      "checkpoint": "artifacts/qwen_ablation_ap_10000/reasoning-s100.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "temporal_ap": 0.8238858282796627,
+      "mask_ap_2d": 0.29785442556778774,
+      "positive_recordings": 76
+    },
+    "shifted_review-s100": {
+      "checkpoint": "artifacts/qwen_ablation_ap_10000/shifted_review-s100.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "temporal_ap": 0.8290953659439436,
+      "mask_ap_2d": 0.30464208971880585,
+      "positive_recordings": 76
+    },
+    "direct-s500": {
+      "checkpoint": "artifacts/qwen_ablation_ap_10000/direct-s500.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "temporal_ap": 0.9236391167896522,
+      "mask_ap_2d": 0.5895670887808231,
+      "positive_recordings": 76
+    },
+    "self_review-s500": {
+      "checkpoint": "artifacts/qwen_ablation_ap_10000/self_review-s500.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "temporal_ap": 0.9186008126180512,
+      "mask_ap_2d": 0.5897340970014794,
+      "positive_recordings": 76
+    },
+    "full-s500": {
+      "checkpoint": "artifacts/qwen_ablation_ap_10000/full-s500.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "temporal_ap": 0.9205598410419832,
+      "mask_ap_2d": 0.5934849819321247,
+      "positive_recordings": 76
+    },
+    "reasoning-s1000": {
+      "checkpoint": "artifacts/qwen_ablation_ap_10000/reasoning-s1000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "temporal_ap": 0.9230598169198172,
+      "mask_ap_2d": 0.6462803490726862,
+      "positive_recordings": 76
+    },
+    "shifted_review-s1000": {
+      "checkpoint": "artifacts/qwen_ablation_ap_10000/shifted_review-s1000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "temporal_ap": 0.9230576810497834,
+      "mask_ap_2d": 0.6533752537539751,
+      "positive_recordings": 76
+    },
+    "direct-s4000": {
+      "checkpoint": "artifacts/qwen_ablation_ap_10000/direct-s4000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "temporal_ap": 0.93460967013862,
+      "mask_ap_2d": 0.7050314066106994,
+      "positive_recordings": 76
+    },
+    "self_review-s4000": {
+      "checkpoint": "artifacts/qwen_ablation_ap_10000/self_review-s4000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "temporal_ap": 0.9360011418110215,
+      "mask_ap_2d": 0.722037510991757,
+      "positive_recordings": 76
+    },
+    "full-s4000": {
+      "checkpoint": "artifacts/qwen_ablation_ap_10000/full-s4000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "temporal_ap": 0.9380749435808367,
+      "mask_ap_2d": 0.7264088942378256,
+      "positive_recordings": 76
+    },
+    "reasoning-s10000": {
+      "checkpoint": "artifacts/qwen_ablation_ap_10000/reasoning-s10000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "temporal_ap": 0.9386023065299594,
+      "mask_ap_2d": 0.724589619896475,
+      "positive_recordings": 76
+    },
+    "shifted_review-s10000": {
+      "checkpoint": "artifacts/qwen_ablation_ap_10000/shifted_review-s10000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "temporal_ap": 0.9442199492816326,
+      "mask_ap_2d": 0.7459174094031842,
+      "positive_recordings": 76
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "dataset": "powdermill",
+  "files": 77,
+  "metrics": [
+    "temporal_iou",
+    "iou_2d"
+  ],
+  "aggregation": "recording_mean",
+  "primary_postprocessing": "none",
+  "empty_union_iou": 1.0,
+  "coordinate_space": "200_hz_time_x_128_mel_frequency",
+  "thresholds": 101,
+  "reference_boxes": 16052,
+  "training_annotations": "data/annotations/xcl/ablation_2500/preliminary/4000s/full.jsonl",
+  "labeled_seconds": 4000,
+  "annotation_variant": "full_adjudication",
+  "models": {
+    "micro": {
+      "checkpoint": "artifacts/qwen_backbone_4000/micro-full-s4000.pt",
+      "backbone": "georgeven/songmae-micro-32x1",
+      "training": {
+        "recordings": 140,
+        "rows": 855,
+        "train_windows": 855,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.726510150463661,
+      "iou_2d": 0.4127732067906355,
+      "threshold": 0.02,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "base": {
+      "checkpoint": "artifacts/qwen_backbone_4000/base-full-s4000.pt",
+      "backbone": "georgeven/songmae-base-32x1",
+      "training": {
+        "recordings": 140,
+        "rows": 855,
+        "train_windows": 855,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.7555140234787056,
+      "iou_2d": 0.4778106927015683,
+      "threshold": 0.05,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "large": {
+      "checkpoint": "artifacts/qwen_ablation_preliminary/full-s4000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "training": {
+        "recordings": 140,
+        "rows": 855,
+        "train_windows": 855,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.7323225513663444,
+      "iou_2d": 0.45685785770626275,
+      "threshold": 0.05,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    }
+  }
+}

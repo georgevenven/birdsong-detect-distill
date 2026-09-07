@@ -30,6 +30,10 @@ def read_rows(path, seed=0, maximum=None):
             tile.get("ownership_start_timebin", tile["start_timebin"]),
             tile.get("ownership_end_timebin", tile["end_timebin"]))
         if "events" in row:
+            retry = row.get("adjudicated") and not row["events"] and any(x.get("events") for x in row.get("passes", [])[:-1])
+            if retry:
+                rows.pop(key, None)
+                continue
             row = {**row, "boxes": [event for event in row["events"] if event["label"] in FOREGROUND]}
         rows[key] = row
     rows = list(rows.values())

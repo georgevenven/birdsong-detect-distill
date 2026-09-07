@@ -60,7 +60,7 @@ def main():
     parser.add_argument("--out", type=Path, default=Path("data/annotations/xcl/qwen38_adaptive_review_5s_annotations.jsonl"))
     parser.add_argument("--progress", type=Path, default=Path("data/annotations/xcl/qwen38_adaptive_review_5s_progress.json"))
     parser.add_argument("--url", default="http://127.0.0.1:8080/v1/chat/completions")
-    parser.add_argument("--workers", type=int, default=8)
+    parser.add_argument("--workers", type=int, default=32)
     parser.add_argument("--reasoning-budget", type=int, default=1024)
     parser.add_argument("--max-tokens", type=int, default=2048)
     parser.add_argument("--timeout", type=float, default=600)
@@ -72,15 +72,11 @@ def main():
     bins_per_second, ms_per_bin = params["sr"] / params["hop_size"], 1000 / (params["sr"] / params["hop_size"])
     second = round(bins_per_second)
     done = read_done(args.out)
-    if args.out.exists():
-        for line in args.out.open():
-            row = json.loads(line)
-            if row.get("status") == "ok" and row.get("adjudicated") and not row.get("events") and any(x.get("events") for x in row.get("passes", [])[:-1]):
-                done.discard((row["recording"], row["tile"]["ownership_start_timebin"], row["tile"]["ownership_end_timebin"]))
     tiles = split_tiles(read_tiles(args.tiles_from.resolve()), 5 * second)
     tiles = [x for x in tiles if (x[0], x[4], x[5]) not in done]
     if args.max_tiles:
         tiles = random.Random(args.seed).sample(tiles, min(args.max_tiles, len(tiles)))
+    completed_at_start = len(done)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     lock = threading.Lock()
 
@@ -92,7 +88,7 @@ def main():
                 "source_start": source_start, "source_end": source_end, "view_start": view_start,
                 "view_end": view_start + 5 * second, "ownership_start": owner_start, "ownership_end": owner_end,
                 "ownership_start_s": owner_start / bins_per_second, "ownership_end_s": owner_end / bins_per_second,
-                "stage": stage, "completed": len(done), "remaining": len(tiles) - len(done)}))
+                "stage": stage, "completed": len(done), "remaining": len(tiles) - len(done) + completed_at_start}))
 
     def annotate(index, tile):
         recording, shard, source_start, source_end, owner_start, owner_end = tile

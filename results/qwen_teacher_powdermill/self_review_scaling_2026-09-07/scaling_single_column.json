@@ -1,0 +1,93 @@
+{
+  "dataset": "powdermill",
+  "evaluated_seconds": 8235.0,
+  "segments": 30,
+  "source_recordings": [
+    "Recording_1"
+  ],
+  "aggregation": "segment_mean",
+  "qwen_self_review": {
+    "temporal_iou": 0.6264447576842815,
+    "iou_2d": 0.36099996538609475,
+    "temporal_precision": 0.8516791717708377,
+    "temporal_recall": 0.6607074532563934,
+    "area_precision_2d": 0.7769292897521624,
+    "area_recall_2d": 0.3622203315984605,
+    "temporal_ap": 0.8592523618450536,
+    "mask_ap_2d": 0.4444487984644254
+  },
+  "students": [
+    {
+      "training_seconds": 10,
+      "training_windows": 2,
+      "training_recordings": 2,
+      "epochs": 3,
+      "threshold": 0.15,
+      "result": "results/qwen_teacher_powdermill/matched_self_review_10s_2026-09-07/comparison.json",
+      "checkpoint": "artifacts/self_review_scaling_2026-09-07/self_review-s10.pt",
+      "checkpoint_sha256": "6da13237b5c95bf9f6b2ff0aededf75562ca0140d3413aed46a96d40b64e8bc8",
+      "temporal_iou": 0.6241206288689881,
+      "iou_2d": 0.18278329590049405,
+      "temporal_precision": 0.6241206288689881,
+      "temporal_recall": 0.9666666666666667,
+      "area_precision_2d": 0.186990161046984,
+      "area_recall_2d": 0.8815307757283308,
+      "temporal_ap": 0.7163172322351505,
+      "mask_ap_2d": 0.2192210296033879
+    },
+    {
+      "training_seconds": 100,
+      "training_windows": 21,
+      "training_recordings": 18,
+      "epochs": 3,
+      "threshold": 0.09,
+      "result": "results/qwen_teacher_powdermill/matched_self_review_100s_2026-09-07/comparison.json",
+      "checkpoint": "artifacts/qwen_ablation_ap_10000/self_review-s100.pt",
+      "checkpoint_sha256": "f39cb0dab5ed24d99bac6df80d572179279cb760c1fbf812e5c00c30ba998a6e",
+      "temporal_iou": 0.6241206288689881,
+      "iou_2d": 0.2066790883795449,
+      "temporal_precision": 0.6241206288689881,
+      "temporal_recall": 0.9666666666666667,
+      "area_precision_2d": 0.22320250999741145,
+      "area_recall_2d": 0.7549979759223894,
+      "temporal_ap": 0.8346268361484249,
+      "mask_ap_2d": 0.30277346393178545
+    },
+    {
+      "training_seconds": 1000,
+      "training_windows": 209,
+      "training_recordings": 112,
+      "epochs": 3,
+      "threshold": 0.07,
+      "result": "results/qwen_teacher_powdermill/matched_self_review_1000s_2026-09-07/comparison.json",
+      "checkpoint": "artifacts/qwen_ablation_ap_10000/self_review-s1000.pt",
+      "checkpoint_sha256": "8fa4df7378251ad657ed8f7824466df4420c81d3daa2ccf4a2f99b30d8e18567",
+      "temporal_iou": 0.7229142526995723,
+      "iou_2d": 0.42628841699743014,
+      "temporal_precision": 0.7553489748613577,
+      "temporal_recall": 0.9156340018002912,
+      "area_precision_2d": 0.5121877254363251,
+      "area_recall_2d": 0.7192969453579227,
+      "temporal_ap": 0.9335949864869135,
+      "mask_ap_2d": 0.6503275500623297
+    },
+    {
+      "training_seconds": 10000,
+      "training_windows": 2103,
+      "training_recordings": 266,
+      "epochs": 3,
+      "threshold": 0.07,
+      "result": "results/qwen_teacher_powdermill/matched_self_review_10000s_2026-09-07/comparison.json",
+      "checkpoint": "artifacts/qwen_ablation_ap_10000/self_review-s10000.pt",
+      "checkpoint_sha256": "13a3280ddee03120043882627c2a00a5683c0300615d98bfb12c54335659916c",
+      "temporal_iou": 0.7731239136730506,
+      "iou_2d": 0.5050363444665928,
+      "temporal_precision": 0.8111148521748931,
+      "temporal_recall": 0.883019710560054,
+      "area_precision_2d": 0.56991071402164,
+      "area_recall_2d": 0.7390672744769605,
+      "temporal_ap": 0.9585412931346926,
+      "mask_ap_2d": 0.7515122598842181
+    }
+  ]
+}

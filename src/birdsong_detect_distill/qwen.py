@@ -33,11 +33,12 @@ def schema():
         "required": ["events", "window_quality", "public_summary"], "additionalProperties": False}
 
 
-def call(args, system, instruction, pictures, seed):
+def call(args, system, instruction, pictures, seed, reasoning_budget=None):
     content = [{"type": "text", "text": instruction}] + [{"type": "image_url", "image_url": {"url": data_url(x)}} for x in pictures]
     payload = {"model": "qwen3.8-27b-q8", "messages": [{"role": "system", "content": system}, {"role": "user", "content": content}],
         "temperature": .5, "top_p": .95, "top_k": 20, "max_tokens": args.max_tokens, "reasoning_effort": "high",
-        "reasoning_budget_tokens": args.reasoning_budget, "chat_template_kwargs": {"add_vision_id": True}, "seed": seed,
+        "reasoning_budget_tokens": args.reasoning_budget if reasoning_budget is None else reasoning_budget,
+        "chat_template_kwargs": {"add_vision_id": True}, "seed": seed,
         "response_format": {"type": "json_schema", "json_schema": {"name": "spectrogram_events", "strict": True, "schema": schema()}}}
     for attempt in range(3):
         try:
@@ -68,6 +69,8 @@ def preview_image(spec, boxes):
     draw = ImageDraw.Draw(picture)
     width, height = picture.size
     for left, top, right, bottom in boxes:
+        if left >= right or top >= bottom:
+            continue
         draw.rectangle((left * width / 1000, top * height / 1000, right * width / 1000, bottom * height / 1000),
             outline="#ff3b30", width=max(4, min(width, height) // 64))
     return picture
@@ -124,9 +127,14 @@ def map_final(events, context_start, context_end, owner_start, owner_end, mels, 
 def read_done(path):
     if not path.exists():
         return set()
-    rows = (json.loads(line) for line in path.open())
-    return {(x["recording"], x["tile"]["ownership_start_timebin"], x["tile"]["ownership_end_timebin"])
-        for x in rows if x.get("status") == "ok"}
+    done = set()
+    for row in (json.loads(line) for line in path.open()):
+        if row.get("status") != "ok":
+            continue
+        key = row["recording"], row["tile"]["ownership_start_timebin"], row["tile"]["ownership_end_timebin"]
+        retry = row.get("adjudicated") and not row.get("events") and any(x.get("events") for x in row.get("passes", [])[:-1])
+        (done.discard if retry else done.add)(key)
+    return done
 
 
 def split_tiles(tiles, width):

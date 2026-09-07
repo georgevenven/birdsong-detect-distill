@@ -1,0 +1,176 @@
+{
+  "dataset": "powdermill",
+  "files": 77,
+  "metrics": [
+    "temporal_iou",
+    "iou_2d"
+  ],
+  "aggregation": "recording_mean",
+  "primary_postprocessing": "none",
+  "empty_union_iou": 1.0,
+  "coordinate_space": "200_hz_time_x_128_mel_frequency",
+  "thresholds": 101,
+  "reference_boxes": 16052,
+  "models": {
+    "direct-s1000": {
+      "checkpoint": "artifacts/qwen_ablation_preliminary/direct-s1000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "training": {
+        "recordings": 93,
+        "rows": 215,
+        "train_windows": 215,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.7256351031799843,
+      "iou_2d": 0.43576298082312076,
+      "threshold": 0.04,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "reasoning-s1000": {
+      "checkpoint": "artifacts/qwen_ablation_preliminary/reasoning-s1000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "training": {
+        "recordings": 93,
+        "rows": 215,
+        "train_windows": 215,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.7346316065756205,
+      "iou_2d": 0.43074230067862307,
+      "threshold": 0.04,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "self_review-s1000": {
+      "checkpoint": "artifacts/qwen_ablation_preliminary/self_review-s1000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "training": {
+        "recordings": 93,
+        "rows": 215,
+        "train_windows": 215,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.7314193251354928,
+      "iou_2d": 0.43167719321605985,
+      "threshold": 0.03,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "shifted_review-s1000": {
+      "checkpoint": "artifacts/qwen_ablation_preliminary/shifted_review-s1000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "training": {
+        "recordings": 93,
+        "rows": 215,
+        "train_windows": 215,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.7331702453683115,
+      "iou_2d": 0.43180632277240455,
+      "threshold": 0.03,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "full-s1000": {
+      "checkpoint": "artifacts/qwen_ablation_preliminary/full-s1000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "training": {
+        "recordings": 93,
+        "rows": 215,
+        "train_windows": 215,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.7360580715525691,
+      "iou_2d": 0.4336986495290312,
+      "threshold": 0.03,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "direct-s4000": {
+      "checkpoint": "artifacts/qwen_ablation_preliminary/direct-s4000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "training": {
+        "recordings": 140,
+        "rows": 855,
+        "train_windows": 855,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.7390467873624454,
+      "iou_2d": 0.4579331315678231,
+      "threshold": 0.09,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "reasoning-s4000": {
+      "checkpoint": "artifacts/qwen_ablation_preliminary/reasoning-s4000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "training": {
+        "recordings": 140,
+        "rows": 855,
+        "train_windows": 855,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.7441630107355728,
+      "iou_2d": 0.456110215558599,
+      "threshold": 0.06,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "self_review-s4000": {
+      "checkpoint": "artifacts/qwen_ablation_preliminary/self_review-s4000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "training": {
+        "recordings": 140,
+        "rows": 855,
+        "train_windows": 855,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.7406068944179274,
+      "iou_2d": 0.46489590966484046,
+      "threshold": 0.05,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "shifted_review-s4000": {
+      "checkpoint": "artifacts/qwen_ablation_preliminary/shifted_review-s4000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "training": {
+        "recordings": 140,
+        "rows": 855,
+        "train_windows": 855,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.7428034968042362,
+      "iou_2d": 0.46807406165279497,
+      "threshold": 0.05,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "full-s4000": {
+      "checkpoint": "artifacts/qwen_ablation_preliminary/full-s4000.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "training": {
+        "recordings": 140,
+        "rows": 855,
+        "train_windows": 855,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.7323225513663444,
+      "iou_2d": 0.45685785770626275,
+      "threshold": 0.05,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    }
+  }
+}

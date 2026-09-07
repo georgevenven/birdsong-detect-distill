@@ -5,9 +5,26 @@ __pycache__/
 *.egg-info/
 data/xcl/shards/
 data/birdcode/
+data/nips4bplus/
 data/annotations/xcl/XCL_train_annotations.json
 artifacts/trained/
 models/*.pt
 data/yolo/
 artifacts/yolo/
 weights/
+
+# Machine-local manuscript work and generated figures (existing tracked files stay tracked).
+song-detect-paper/
+/results/**/*.png
+/results/**/*.pdf
+/results/**/*.svg
+/results/**/logs/
+/tmp/
+
+# Transfer experiment inputs and weights directly, not through Git.
+/artifacts/
+/data/powdermill/
+/data/xcl/shards
+/data/annotations/powdermill/
+/data/annotations/xcl/ablation_*/
+/data/annotations/xcl/self_review_scaling_*/

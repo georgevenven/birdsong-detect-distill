@@ -1,0 +1,96 @@
+{
+  "dataset": "powdermill",
+  "files": 77,
+  "metrics": [
+    "temporal_iou",
+    "iou_2d"
+  ],
+  "aggregation": "recording_mean",
+  "primary_postprocessing": "none",
+  "empty_union_iou": 1.0,
+  "coordinate_space": "200_hz_time_x_128_mel_frequency",
+  "thresholds": 101,
+  "reference_boxes": 16052,
+  "models": {
+    "direct": {
+      "checkpoint": "artifacts/qwen_ablation_10/direct.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "training": {
+        "recordings": 10,
+        "rows": 26,
+        "train_windows": 26,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.6556970803733356,
+      "iou_2d": 0.19662444719661157,
+      "threshold": 0.02,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "reasoning": {
+      "checkpoint": "artifacts/qwen_ablation_10/reasoning.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "training": {
+        "recordings": 10,
+        "rows": 26,
+        "train_windows": 26,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.6556970803733356,
+      "iou_2d": 0.19612167384033974,
+      "threshold": 0.02,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "self_review": {
+      "checkpoint": "artifacts/qwen_ablation_10/self_review.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "training": {
+        "recordings": 10,
+        "rows": 26,
+        "train_windows": 26,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.6556970803733356,
+      "iou_2d": 0.1967213398154403,
+      "threshold": 0.02,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "shifted_review": {
+      "checkpoint": "artifacts/qwen_ablation_10/shifted_review.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "training": {
+        "recordings": 10,
+        "rows": 26,
+        "train_windows": 26,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.6556970803733356,
+      "iou_2d": 0.1967083582680889,
+      "threshold": 0.02,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "full": {
+      "checkpoint": "artifacts/qwen_ablation_10/full.pt",
+      "backbone": "georgeven/songmae-large-32x1",
+      "training": {
+        "recordings": 10,
+        "rows": 26,
+        "train_windows": 26,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.6556970803733356,
+      "iou_2d": 0.19660747930361042,
+      "threshold": 0.02,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    }
+  }
+}

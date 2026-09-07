@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import json
+import random
 from collections import defaultdict
 from pathlib import Path
 
@@ -69,7 +70,10 @@ def main():
     parser.add_argument("--eval-batch-size", type=int, default=4)
     parser.add_argument("--accumulation", type=int, default=1)
     parser.add_argument("--val-fraction", type=float, default=.25)
+    parser.add_argument("--train-all", action="store_true")
+    parser.add_argument("--threshold", type=float)
     parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--recordings", type=int)
     parser.add_argument("--maximum", type=int)
     args = parser.parse_args()
     torch.manual_seed(args.seed)
@@ -77,47 +81,63 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     backbone = load_backbone(args.backbone, device)
     rows = read_rows(args.annotations, args.seed, args.maximum)
-    train_rows, val_rows = split_rows(rows, args.val_fraction, args.seed)
+    selected = sorted({row["recording"] for row in rows})
+    random.Random(args.seed).shuffle(selected)
+    if args.recordings:
+        selected = selected[:args.recordings]
+        keep = set(selected)
+        rows = [row for row in rows if row["recording"] in keep]
+    train_rows, val_rows = (rows, []) if args.train_all else split_rows(rows, args.val_fraction, args.seed)
     train = PixelWindows(train_rows, args.shard_dir, backbone.config)
-    val = PixelWindows(val_rows, args.shard_dir, backbone.config)
     config = backbone.config
     height, width = config.mels // config.patch_height, config.num_timebins // config.patch_width
     head = DenseHead(config.enc_hidden_d, args.hidden, height, width, config.patch_height, config.patch_width, args.dropout).to(device)
     optimizer = torch.optim.AdamW(head.parameters(), 1e-3, weight_decay=args.weight_decay)
-    loaders = [DataLoader(data, batch, shuffle=index == 0, num_workers=2, pin_memory=True)
-        for index, (data, batch) in enumerate(((train, args.batch_size), (val, args.eval_batch_size)))]
+    train_loader = DataLoader(train, args.batch_size, shuffle=True, num_workers=2, pin_memory=True)
+    if not args.train_all:
+        val = PixelWindows(val_rows, args.shard_dir, backbone.config)
+        val_loader = DataLoader(val, args.eval_batch_size, num_workers=2, pin_memory=True)
     best_state, best_loss = None, float("inf")
-    print(f"{len(train)} train / {len(val)} validation windows; {sum(x.numel() for x in head.parameters()):,} trainable parameters")
+    print(f"{len(train)} train / {len(val_rows)} validation windows; {sum(x.numel() for x in head.parameters()):,} trainable parameters")
     for epoch in range(1, args.epochs + 1):
         head.train()
         losses = []
         optimizer.zero_grad(set_to_none=True)
-        for step, (specs, targets, valid) in enumerate(loaders[0], 1):
+        for step, (specs, targets, valid) in enumerate(train_loader, 1):
             specs, targets = specs.to(device), targets.to(device)
             with torch.no_grad():
                 tokens = backbone(input_values=specs, valid_timebins=valid.to(device)).last_hidden_state
             value = loss(head(tokens.float(), valid), targets, valid, True, args.tv_weight)
             (value / args.accumulation).backward()
-            if step % args.accumulation == 0 or step == len(loaders[0]):
+            if step % args.accumulation == 0 or step == len(train_loader):
                 optimizer.step()
                 optimizer.zero_grad(set_to_none=True)
             losses.append(float(value))
+        if args.train_all:
+            best_state = {key: value.detach().cpu() for key, value in head.state_dict().items()}
+            print(f"epoch {epoch}: train={np.mean(losses):.4f}", flush=True)
+            continue
         torch.cuda.empty_cache()
-        val_loss, validation = evaluate(backbone, head, loaders[1], val, device, args.tv_weight)
+        val_loss, validation = evaluate(backbone, head, val_loader, val, device, args.tv_weight)
         score = best_threshold(validation)
         print(f"epoch {epoch}: train={np.mean(losses):.4f} val={val_loss:.4f} f1={score[3]:.3f} p={score[1]:.3f} r={score[2]:.3f}", flush=True)
         if val_loss < best_loss:
             best_loss, best_state = val_loss, {key: value.detach().cpu() for key, value in head.state_dict().items()}
     head.load_state_dict(best_state)
-    _, validation = evaluate(backbone, head, loaders[1], val, device, args.tv_weight)
-    recordings = sorted({x[0] for x in validation})
-    np.random.default_rng(123).shuffle(recordings)
-    calibration = set(recordings[:len(recordings) // 2])
-    calibration_rows = [x for x in validation if x[0] in calibration]
-    test_rows = [x for x in validation if x[0] not in calibration]
-    threshold = best_threshold(calibration_rows)[0]
-    report = {"best_val_loss": best_loss, "threshold": threshold, "calibration_recordings": len(calibration),
-        "test_recordings": len(set(recordings) - calibration), "untouched_test": summary(test_rows, threshold)}
+    if args.train_all:
+        threshold = args.threshold if args.threshold is not None else 0.0
+        report = {"recordings": len(selected), "rows": len(rows), "train_windows": len(train),
+            "epochs": args.epochs, "threshold_source": "provided" if args.threshold is not None else "uncalibrated"}
+    else:
+        _, validation = evaluate(backbone, head, val_loader, val, device, args.tv_weight)
+        recordings = sorted({x[0] for x in validation})
+        np.random.default_rng(123).shuffle(recordings)
+        calibration = set(recordings[:len(recordings) // 2])
+        calibration_rows = [x for x in validation if x[0] in calibration]
+        test_rows = [x for x in validation if x[0] not in calibration]
+        threshold = best_threshold(calibration_rows)[0]
+        report = {"best_val_loss": best_loss, "threshold": threshold, "calibration_recordings": len(calibration),
+            "test_recordings": len(set(recordings) - calibration), "untouched_test": summary(test_rows, threshold)}
     args.out.parent.mkdir(parents=True, exist_ok=True)
     torch.save({"format_version": 1, "head": best_state, "hidden": args.hidden, "height": height, "width": width,
         "dropout": args.dropout, "backbone_id": args.backbone, "threshold": threshold, "tv_weight": args.tv_weight,

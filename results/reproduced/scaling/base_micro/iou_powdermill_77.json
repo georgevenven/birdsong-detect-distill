@@ -1,0 +1,144 @@
+{
+  "dataset": "powdermill",
+  "files": 77,
+  "metrics": [
+    "temporal_iou",
+    "iou_2d"
+  ],
+  "aggregation": "recording_mean",
+  "primary_postprocessing": "none",
+  "empty_union_iou": 1.0,
+  "coordinate_space": "200_hz_time_x_128_mel_frequency",
+  "thresholds": 101,
+  "reference_boxes": 16052,
+  "models": {
+    "songmae-base-32x1-qwen-r10": {
+      "checkpoint": "artifacts/scaling/songmae-base-32x1-qwen-r10.pt",
+      "backbone": "georgeven/songmae-base-32x1",
+      "training": {
+        "recordings": 10,
+        "rows": 148,
+        "train_windows": 148,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.6971518413480158,
+      "iou_2d": 0.430885579172993,
+      "threshold": 0.09,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "songmae-base-32x1-qwen-r50": {
+      "checkpoint": "artifacts/scaling/songmae-base-32x1-qwen-r50.pt",
+      "backbone": "georgeven/songmae-base-32x1",
+      "training": {
+        "recordings": 50,
+        "rows": 421,
+        "train_windows": 421,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.7607278383262114,
+      "iou_2d": 0.48789519159493944,
+      "threshold": 0.07,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "songmae-base-32x1-qwen-r100": {
+      "checkpoint": "artifacts/scaling/songmae-base-32x1-qwen-r100.pt",
+      "backbone": "georgeven/songmae-base-32x1",
+      "training": {
+        "recordings": 100,
+        "rows": 751,
+        "train_windows": 751,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.7267076254255782,
+      "iou_2d": 0.48288677169868083,
+      "threshold": 0.02,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "songmae-base-32x1-qwen-r300": {
+      "checkpoint": "artifacts/scaling/songmae-base-32x1-qwen-r300.pt",
+      "backbone": "georgeven/songmae-base-32x1",
+      "training": {
+        "recordings": 300,
+        "rows": 2708,
+        "train_windows": 2708,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.763663096751526,
+      "iou_2d": 0.4845136672879856,
+      "threshold": 0.11,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "songmae-micro-32x1-qwen-r10": {
+      "checkpoint": "artifacts/scaling/songmae-micro-32x1-qwen-r10.pt",
+      "backbone": "georgeven/songmae-micro-32x1",
+      "training": {
+        "recordings": 10,
+        "rows": 148,
+        "train_windows": 148,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.6557351303117979,
+      "iou_2d": 0.28097385092275345,
+      "threshold": 0.1,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "songmae-micro-32x1-qwen-r50": {
+      "checkpoint": "artifacts/scaling/songmae-micro-32x1-qwen-r50.pt",
+      "backbone": "georgeven/songmae-micro-32x1",
+      "training": {
+        "recordings": 50,
+        "rows": 421,
+        "train_windows": 421,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.6642851035073545,
+      "iou_2d": 0.40305358945586384,
+      "threshold": 0.03,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "songmae-micro-32x1-qwen-r100": {
+      "checkpoint": "artifacts/scaling/songmae-micro-32x1-qwen-r100.pt",
+      "backbone": "georgeven/songmae-micro-32x1",
+      "training": {
+        "recordings": 100,
+        "rows": 751,
+        "train_windows": 751,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.6624878040220626,
+      "iou_2d": 0.39868126329332493,
+      "threshold": 0.01,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    },
+    "songmae-micro-32x1-qwen-r300": {
+      "checkpoint": "artifacts/scaling/songmae-micro-32x1-qwen-r300.pt",
+      "backbone": "georgeven/songmae-micro-32x1",
+      "training": {
+        "recordings": 300,
+        "rows": 2708,
+        "train_windows": 2708,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.721108524460396,
+      "iou_2d": 0.431067504865362,
+      "threshold": 0.07,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    }
+  }
+}

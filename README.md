@@ -65,7 +65,7 @@ python scripts/evaluate_qwen_yolo.py --dataset xcsl
 
 Pass `--scratch` to train the identical YOLO11n architecture from random initialization. Images are split by recording, and `target_vocalization`, `uncertain_vocalization`, and `chorus` are collapsed into one `bird` class.
 
-For a direct human-box comparison of YOLO and SongMAE in time-frequency space:
+Evaluate SongMAE with the default recording-mean temporal and 2D IoU metrics. Without `--threshold`, the development-set threshold maximizes mean 2D IoU and is shared by both metrics; pass that value with `--threshold` on test data.
 
 ```bash
 python scripts/evaluate_2d.py --dataset powdermill --root /path/to/birdcode/raw
@@ -86,6 +86,18 @@ MODEL_DIR=/path/to/Qwen3.8-27B-GGUF scripts/qwen_server.sh
 python scripts/annotate_qwen.py --spec-dir data/xcl
 python scripts/serve_annotations.py --shard-dir data/xcl/shards
 ```
+
+The cumulative ten-recording prompt ablation measures direct annotation, private reasoning, self-review, shifted review, and
+conditional adjudication on identical XCL recordings. It excludes every XCAJ recording ID, trains one Large 32×1 head per
+condition, and evaluates recording-mean temporal and 2D IoU only on Powdermill:
+
+```bash
+MODEL_DIR=/path/to/Qwen3.8-27B-GGUF scripts/qwen_server.sh
+BIRDCODE_ROOT=/path/to/birdcode/raw scripts/run_qwen_ablation.sh
+```
+
+After annotation completes, stop the Qwen server and rerun `scripts/run_qwen_ablation.sh`; completed annotations are skipped and
+the freed GPUs are used for training and Powdermill evaluation.
 
 ## Migration notes
 

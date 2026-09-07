@@ -7,16 +7,12 @@ from pathlib import Path
 import librosa
 import numpy as np
 import torch
-from scipy import ndimage
-from scipy.optimize import linear_sum_assignment
-from ultralytics import YOLO
 
-from birdsong_detect_distill.evaluation import WABAD_SITES, average_precision, powdermill, wabad, xcsl
-from birdsong_detect_distill.model import clean_mask, load_detector
-from evaluate_qwen_yolo import windows
+from birdsong_detect_distill.evaluation import WABAD_SITES, powdermill, wabad, xcsl
+from birdsong_detect_distill.model import DenseHead, load_backbone
 
 
-THRESHOLDS = np.linspace(0, 1, 51)
+THRESHOLDS = np.linspace(0, 1, 101)
 
 
 def references(events):
@@ -27,38 +23,50 @@ def references(events):
         events[:, 1], (librosa.hz_to_mel(np.clip(events[:, 3], 20, 16000)) - low) * scale))
 
 
-def match(reference, estimate, iou):
-    if not len(reference) or not len(estimate):
-        return np.asarray([0, len(estimate), len(reference)])
-    left = np.maximum(reference[:, None, :2], estimate[None, :, :2])
-    right = np.minimum(reference[:, None, 2:], estimate[None, :, 2:])
-    intersection = np.maximum(0, right - left).prod(2)
-    reference_area = np.maximum(0, reference[:, 2:] - reference[:, :2]).prod(1)
-    estimate_area = np.maximum(0, estimate[:, 2:] - estimate[:, :2]).prod(1)
-    valid = intersection / np.maximum(reference_area[:, None] + estimate_area[None] - intersection, 1e-12) >= iou
-    row, column = linear_sum_assignment(valid, maximize=True)
-    true = int(valid[row, column].sum())
-    return np.asarray([true, len(estimate) - true, len(reference) - true])
+def reference_mask(events, shape):
+    mask = np.zeros(shape, bool)
+    for left, low, right, high in references(events):
+        x0, x1 = max(0, int(np.floor(left * 200))), min(shape[1], int(np.ceil(right * 200)))
+        y0, y1 = max(0, int(np.floor(low))), min(shape[0], int(np.ceil(high)))
+        mask[y0:y1, x0:x1] = True
+    return mask
 
 
-def yolo_boxes(model, waveform, device):
-    _, views = windows(waveform)
-    results = []
-    for chunk in batched([x[2] for x in views], 16):
-        results.extend(model.predict(list(chunk), imgsz=1024, device=device, conf=.001, iou=.7,
-            batch=len(chunk), verbose=False))
-    boxes = []
-    for index, (result, (start, valid, _)) in enumerate(zip(results, views)):
-        owner_left, owner_right = (0 if index == 0 else 250), (valid if index == len(views) - 1 else 750)
-        for box, score in zip(result.boxes.xyxyn.cpu().numpy(), result.boxes.conf.cpu().numpy()):
-            if owner_left <= (box[0] + box[2]) * 500 < owner_right:
-                boxes.append([(start + box[0] * 1000) / 200, (1 - box[3]) * 128,
-                    (start + box[2] * 1000) / 200, (1 - box[1]) * 128, score])
-    return np.asarray(boxes).reshape(-1, 5)
+def iou_curve(probability, truth):
+    bins = np.minimum((probability * (len(THRESHOLDS) - 1)).astype(np.int16), len(THRESHOLDS) - 1)
+    positive = np.bincount(bins[truth], minlength=len(THRESHOLDS))
+    negative = np.bincount(bins[~truth], minlength=len(THRESHOLDS))
+    intersection = np.cumsum(positive[::-1])[::-1]
+    union = int(truth.sum()) + np.cumsum(negative[::-1])[::-1]
+    return np.divide(intersection, union, out=np.ones(len(THRESHOLDS)), where=union != 0)
+
+
+def recording_curves(probability, truth):
+    return np.stack((iou_curve(probability.max(0), truth.any(0)), iou_curve(probability, truth)))
+
+
+def summarize(curves, threshold):
+    mean = np.mean(curves, axis=0)
+    index = int(np.argmax(mean[1])) if threshold is None else int(np.argmin(np.abs(THRESHOLDS - threshold)))
+    return {"temporal_iou": float(mean[0, index]), "iou_2d": float(mean[1, index]),
+        "threshold": float(THRESHOLDS[index]), "recordings": len(curves),
+        "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set" if threshold is None else "fixed"}
+
+
+def load_heads(paths, backbone, device):
+    heads = {}
+    for path in paths:
+        saved = torch.load(path, map_location="cpu", weights_only=True)
+        config = backbone.config
+        head = DenseHead(config.enc_hidden_d, saved["hidden"], saved["height"], saved["width"],
+            config.patch_height, config.patch_width, saved["dropout"]).to(device)
+        head.load_state_dict(saved["head"])
+        heads[path.stem] = head.eval()
+    return heads
 
 
 @torch.inference_mode()
-def songmae_probability(backbone, head, waveform, device):
+def songmae_probabilities(backbone, heads, waveform, device):
     config = backbone.config
     spec = librosa.feature.melspectrogram(y=waveform, sr=32000, n_fft=1024,
         hop_length=160, power=2, n_mels=128, fmin=20, fmax=16000)
@@ -67,84 +75,76 @@ def songmae_probability(backbone, head, waveform, device):
     starts = list(range(0, max(1, spec.shape[1] - width + hop), hop))
     if starts[-1] + width < spec.shape[1]:
         starts.append(starts[-1] + hop)
-    windows_, valid = [], []
-    for start in starts:
-        size = min(width, spec.shape[1] - start)
-        windows_.append(np.pad(spec[:, start:start + size], ((0, 0), (0, width - size))))
-        valid.append(size)
-    output = []
-    for indexes in batched(range(len(windows_)), 4):
+    output = {name: np.zeros((128, spec.shape[1]), np.float32) for name in heads}
+    for indexes in batched(range(len(starts)), 4):
         indexes = list(indexes)
-        values = torch.from_numpy(np.asarray([windows_[i] for i in indexes]))[:, None].to(device)
-        lengths = torch.tensor([valid[i] for i in indexes], device=device)
+        valid = [min(width, spec.shape[1] - starts[i]) for i in indexes]
+        values = np.asarray([np.pad(spec[:, starts[i]:starts[i] + valid[j]], ((0, 0), (0, width - valid[j])))
+            for j, i in enumerate(indexes)])
+        values = torch.from_numpy(values)[:, None].to(device)
+        lengths = torch.tensor(valid, device=device)
         with torch.autocast(device.type):
             tokens = backbone(input_values=values, valid_timebins=lengths).last_hidden_state
-            output.extend(head(tokens, lengths).sigmoid().float().cpu().numpy())
-    probability = np.zeros((128, spec.shape[1]), np.float32)
-    for value, start, size in zip(output, starts, valid):
-        probability[:, start:start + size] = np.maximum(probability[:, start:start + size], value[:, :size])
-    logits = np.log(np.clip(probability, 1e-5, 1 - 1e-5) / np.clip(1 - probability, 1e-5, 1))
-    return 1 / (1 + np.exp(-ndimage.gaussian_filter(logits, (2, 3))))
-
-
-def songmae_boxes(probability):
-    smooth, mask = clean_mask(probability)
-    labels, count = ndimage.label(mask)
-    boxes = []
-    for component in range(1, count + 1):
-        y, x = np.where(labels == component)
-        boxes.append([x.min() / 200, y.min(), (x.max() + 1) / 200, y.max() + 1, smooth[y, x].max()])
-    return np.asarray(boxes).reshape(-1, 5)
-
-
-def summarize(counts):
-    output = {f"ap_iou_{iou}": average_precision(value) for iou, value in counts.items()}
-    for iou, value in counts.items():
-        tp, fp, fn = value.T
-        precision, recall = tp / np.maximum(1, tp + fp), tp / np.maximum(1, tp + fn)
-        f1 = 2 * precision * recall / np.maximum(precision + recall, 1e-12)
-        index = int(np.argmax(f1))
-        output[f"best_f1_iou_{iou}"] = {"f1": float(f1[index]), "precision": float(precision[index]),
-            "recall": float(recall[index]), "threshold": float(THRESHOLDS[index])}
+            predictions = {name: head(tokens, lengths).sigmoid().float().cpu().numpy() for name, head in heads.items()}
+        for name, prediction in predictions.items():
+            for value, i, size in zip(prediction, indexes, valid):
+                start = starts[i]
+                output[name][:, start:start + size] = np.maximum(output[name][:, start:start + size], value[:, :size])
     return output
 
 
+@torch.inference_mode()
+def songmae_probability(backbone, head, waveform, device):
+    return songmae_probabilities(backbone, {"model": head}, waveform, device)["model"]
+
+
 def main():
-    parser = argparse.ArgumentParser(description="Compare YOLO and SongMAE using human two-dimensional boxes.")
+    parser = argparse.ArgumentParser(description="Evaluate recording-mean temporal and 2D IoU.")
     parser.add_argument("--dataset", choices=("powdermill", "xcsl", "wabad"), required=True)
     parser.add_argument("--root", type=Path, required=True)
-    parser.add_argument("--maximum", type=int, default=16)
+    parser.add_argument("--checkpoint", type=Path, action="append", default=[])
+    parser.add_argument("--maximum", type=int)
+    parser.add_argument("--device", default="cuda:0")
+    parser.add_argument("--threshold", type=float)
     parser.add_argument("--out", type=Path, default=Path("results/reproduced"))
     args = parser.parse_args()
-    yolo = YOLO("artifacts/yolo11n-qwen-birdbox-init.pt")
-    device = torch.device("cuda:1")
-    backbone, head, _ = load_detector("artifacts/songmae-large-32x1-detector.pt", device)
+    checkpoints = args.checkpoint or [Path("artifacts/songmae-large-32x1-detector.pt")]
+    saved = {path: torch.load(path, map_location="cpu", weights_only=True) for path in checkpoints}
+    grouped = {}
+    for path, checkpoint in saved.items():
+        grouped.setdefault(checkpoint["backbone_id"], []).append(path)
     if args.dataset == "wabad":
-        stride = max(1, len(WABAD_SITES) // args.maximum)
-        source = (row for site in WABAD_SITES[::stride][:args.maximum] for row in islice(wabad(args.root, [site]), 1))
+        maximum = args.maximum or len(WABAD_SITES)
+        stride = max(1, len(WABAD_SITES) // maximum)
+        source = (row for site in WABAD_SITES[::stride][:maximum] for row in islice(wabad(args.root, [site]), 1))
     else:
         source = {"powdermill": powdermill, "xcsl": xcsl}[args.dataset](args.root)
-        source = islice(source, args.maximum)
-    counts = {model: {iou: np.zeros((len(THRESHOLDS), 3), np.int64) for iou in (.2, .5)}
-        for model in ("yolo11n_qwen", "songmae_large_32x1")}
-    files = 0
-    for recording, waveform, events in source:
-        reference = references(events)
-        predicted = yolo_boxes(yolo, waveform, "cuda:0")
-        probability = songmae_probability(backbone, head, waveform, device)
-        songmae = songmae_boxes(probability)
-        for index, threshold in enumerate(THRESHOLDS):
-            estimates = {"yolo11n_qwen": predicted[predicted[:, 4] >= threshold, :4],
-                "songmae_large_32x1": songmae[songmae[:, 4] >= threshold, :4]}
-            for model, boxes in estimates.items():
-                for iou in (.2, .5):
-                    counts[model][iou][index] += match(reference, boxes, iou)
-        files += 1
-        print(f"{args.dataset}: {files}", flush=True)
-    result = {"dataset": args.dataset, "files": files, "coordinate_space": "time_seconds_x_mel_frequency",
-        "thresholds": len(THRESHOLDS), "models": {model: summarize(value) for model, value in counts.items()}}
+        source = islice(source, args.maximum) if args.maximum else source
+    source = list(source)
+    curves = {path.stem: [] for path in checkpoints}
+    device = torch.device(args.device)
+    for backbone_id, paths in grouped.items():
+        backbone = load_backbone(backbone_id, device)
+        heads = load_heads(paths, backbone, device)
+        for index, (_, waveform, events) in enumerate(source, 1):
+            probabilities = songmae_probabilities(backbone, heads, waveform, device)
+            truth = reference_mask(events, next(iter(probabilities.values())).shape)
+            for name, probability in probabilities.items():
+                curves[name].append(recording_curves(probability, truth))
+            print(f"{backbone_id.split('/')[-1]}: {index}/{len(source)}", flush=True)
+        del backbone, heads
+        torch.cuda.empty_cache()
+    by_name = {path.stem: (path, saved[path]) for path in checkpoints}
+    models = {name: {"checkpoint": str(path), "backbone": checkpoint["backbone_id"],
+        "training": checkpoint.get("metrics", {}), **summarize(np.asarray(curves[name]), args.threshold)}
+        for name, (path, checkpoint) in by_name.items()}
+    result = {"dataset": args.dataset, "files": len(source), "metrics": ["temporal_iou", "iou_2d"],
+        "aggregation": "recording_mean", "primary_postprocessing": "none",
+        "empty_union_iou": 1.0,
+        "coordinate_space": "200_hz_time_x_128_mel_frequency", "thresholds": len(THRESHOLDS),
+        "reference_boxes": int(sum(len(row[2]) for row in source)), "models": models}
     args.out.mkdir(parents=True, exist_ok=True)
-    path = args.out / f"spatial_2d_{args.dataset}_{files}.json"
+    path = args.out / f"iou_{args.dataset}_{len(source)}.json"
     path.write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result, indent=2))
 

@@ -1,0 +1,32 @@
+{
+  "dataset": "powdermill",
+  "files": 77,
+  "metrics": [
+    "temporal_iou",
+    "iou_2d"
+  ],
+  "aggregation": "recording_mean",
+  "primary_postprocessing": "none",
+  "empty_union_iou": 1.0,
+  "coordinate_space": "200_hz_time_x_128_mel_frequency",
+  "thresholds": 101,
+  "reference_boxes": 16052,
+  "models": {
+    "micro-full-s4000": {
+      "checkpoint": "artifacts/qwen_backbone_4000/micro-full-s4000.pt",
+      "backbone": "georgeven/songmae-micro-32x1",
+      "training": {
+        "recordings": 140,
+        "rows": 855,
+        "train_windows": 855,
+        "epochs": 3,
+        "threshold_source": "uncalibrated"
+      },
+      "temporal_iou": 0.726510150463661,
+      "iou_2d": 0.4127732067906355,
+      "threshold": 0.02,
+      "recordings": 77,
+      "threshold_selection": "maximum_recording_mean_2d_iou_on_development_set"
+    }
+  }
+}

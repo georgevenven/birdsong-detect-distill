@@ -20,11 +20,17 @@ def main():
     parser.add_argument("--out", type=Path, default=Path("results/visualizations"))
     parser.add_argument("--n", type=int, default=8)
     parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--label")
+    parser.add_argument("--unique-recordings", action="store_true")
     args = parser.parse_args()
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     backbone, head, saved = load_detector(args.checkpoint, device)
     _, rows = split_rows(read_rows(args.annotations, args.seed), .25, args.seed)
+    if args.label:
+        rows = [row for row in rows if any(box["label"] == args.label for box in row["boxes"])]
     random.Random(args.seed).shuffle(rows)
+    if args.unique_recordings:
+        rows = list({row["recording"]: row for row in rows}.values())
     args.out.mkdir(parents=True, exist_ok=True)
     for index, row in enumerate(rows[:args.n], 1):
         data = PixelWindows([row], args.shard_dir, backbone.config)
@@ -56,9 +62,14 @@ def main():
         if detected.any():
             axes[2].contour(detected, levels=[.5], colors="lime", linewidths=.8, origin="lower", extent=extent)
         for box in row["boxes"]:
+            selected = not args.label or box["label"] == args.label
             axes[0].add_patch(Rectangle((box["onset_ms"] / 1000, box["low_mel_bin"]),
                 (box["offset_ms"] - box["onset_ms"]) / 1000, box["high_mel_bin"] - box["low_mel_bin"],
-                fill=False, edgecolor="white", linestyle="--", linewidth=1.2))
+                fill=False, edgecolor="cyan" if selected else "white", linestyle="-" if selected else "--",
+                linewidth=1.8 if selected else .8))
+            if selected:
+                axes[0].text(box["onset_ms"] / 1000, box["high_mel_bin"], box["label"], color="cyan",
+                    fontsize=8, va="bottom")
         for axis, title in zip(axes, ("Qwen teacher boxes", "SongMAE Large 32×1 P(song)",
                 "Cleaned SongMAE detections")):
             axis.set_title(title)
@@ -68,7 +79,8 @@ def main():
         axes[1].tick_params(labelbottom=False)
         fig.colorbar(image, cax=color_axis, label="P(song)")
         fig.suptitle(f"Held-out recording {row['recording']}", fontsize=15)
-        fig.savefig(args.out / f"large32x1_holdout_{index:02d}_{row['recording']}.png", dpi=150)
+        suffix = f"_{args.label}" if args.label else ""
+        fig.savefig(args.out / f"large32x1_holdout_{index:02d}_{row['recording']}{suffix}.png", dpi=150)
         plt.close(fig)
     print(f"wrote {min(args.n, len(rows))} held-out predictions to {args.out}")
 
