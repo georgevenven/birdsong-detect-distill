@@ -1,0 +1,38 @@
+{
+  "sources_sha256": {
+    "results/qwen_teacher_powdermill/self_review_scaling_2026-09-07/scaling_single_column.json": "61a60bcf9b2425221d2833f67c7538b3dc93462adbb60835949c828ec61def66",
+    "results/qwen_teacher_powdermill/backbone_self_review_10000s_2026-09-07/summary.json": "45bed14f635982640e92b6cc88ee38d092b97667263b73719b9d63dd87c7b633"
+  },
+  "evaluated_seconds": 8235.0,
+  "source_recordings": [
+    "Recording_1"
+  ],
+  "metric": "segment_mean_mask_ap_2d",
+  "label_budget_seconds": [
+    100,
+    1000,
+    10000
+  ],
+  "label_budget_ap": [
+    0.30277346393178545,
+    0.6503275500623297,
+    0.7515122598842181
+  ],
+  "backbone_sizes": [
+    "micro",
+    "base",
+    "large"
+  ],
+  "backbone_ap": [
+    0.6490964089723099,
+    0.6990510425221784,
+    0.7515121702875792
+  ],
+  "qwen_self_review_ap": 0.4444487984644254,
+  "shared_checkpoint_sha256": "13a3280ddee03120043882627c2a00a5683c0300615d98bfb12c54335659916c",
+  "figure_inches": [
+    3.5,
+    3.5
+  ],
+  "png_dpi": 600
+}
