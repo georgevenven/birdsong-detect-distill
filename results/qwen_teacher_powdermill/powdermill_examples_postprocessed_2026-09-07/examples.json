@@ -1,0 +1,217 @@
+{
+  "comparison": "results/qwen_teacher_powdermill/backbone_self_review_10000s_2026-09-07/large/comparison.json",
+  "comparison_sha256": "7079d50dc7182570efb0493a8e6f7b25de1e78fd36d629d21284da8eef11d063",
+  "checkpoint": "artifacts/qwen_ablation_ap_10000/self_review-s10000.pt",
+  "checkpoint_sha256": "13a3280ddee03120043882627c2a00a5683c0300615d98bfb12c54335659916c",
+  "backbone_revision": "f4eb120734c01ae8bb89f314cf77eefbc2ef8b4e",
+  "inference": {
+    "window_seconds": 5,
+    "stride_seconds": 2.5,
+    "overlap_aggregation": "maximum",
+    "postprocessing": "clean_mask",
+    "autocast": "float16",
+    "device": "cuda:0",
+    "visible_devices": "GPU-8d9ddeaf-7d5c-60bf-69f8-eb10172a2556"
+  },
+  "visible_devices": "GPU-8d9ddeaf-7d5c-60bf-69f8-eb10172a2556",
+  "selection": "Four qualitative candidates chosen for human-annotation structure and visual variety; not a representative sample.",
+  "display": {
+    "seconds": 5,
+    "frequency_scale": "mel",
+    "frequency_hz": [
+      20,
+      16000
+    ],
+    "spectrogram_db": [
+      -70,
+      0
+    ],
+    "reference": "full_segment_maximum",
+    "postprocessing": "clean_mask"
+  },
+  "examples": [
+    {
+      "id": "A",
+      "description": "Sparse vocalizations",
+      "recording": "Recording_1_Segment_13",
+      "start_seconds": 105,
+      "end_seconds": 110,
+      "reference_events": 2,
+      "species_codes": [
+        "EATO",
+        "OVEN"
+      ],
+      "file": "A_R1S13_105-110s",
+      "cache": "artifacts/powdermill_examples_postprocessed_2026-09-07/A_R1S13_105-110s.npz",
+      "cache_sha256": "d5c9acf0479e3e06b5e3448db61732bd5a7e56f14432371e0d6db24587e0272c",
+      "clip_metrics": {
+        "temporal_iou": 0.825503355704698,
+        "iou_2d": 0.7328082599774969,
+        "temporal_precision": 0.8292134831460675,
+        "temporal_recall": 0.9946091644204852,
+        "area_precision_2d": 0.7772551772551772,
+        "area_recall_2d": 0.9276139410187667,
+        "temporal_ap": 0.9753377497075613,
+        "mask_ap_2d": 0.9400683737603971,
+        "counts": {
+          "temporal": [
+            369,
+            76,
+            2
+          ],
+          "2d": [
+            11072,
+            3173,
+            864
+          ]
+        }
+      }
+    },
+    {
+      "id": "B",
+      "description": "Repeated song phrase",
+      "recording": "Recording_1_Segment_08",
+      "start_seconds": 80,
+      "end_seconds": 85,
+      "reference_events": 7,
+      "species_codes": [
+        "EATO",
+        "NOCA",
+        "OVEN",
+        "TUTI",
+        "WOTH"
+      ],
+      "file": "B_R1S08_80-85s",
+      "cache": "artifacts/powdermill_examples_postprocessed_2026-09-07/B_R1S08_80-85s.npz",
+      "cache_sha256": "154a19953e098debf944e3a377c933a7116e80fcaf3fac25d055a578dcf029f7",
+      "clip_metrics": {
+        "temporal_iou": 0.907537688442211,
+        "iou_2d": 0.7161835978333175,
+        "temporal_precision": 0.907537688442211,
+        "temporal_recall": 1.0,
+        "area_precision_2d": 0.8755314946908618,
+        "area_recall_2d": 0.797367641457531,
+        "temporal_ap": 0.9853027146321679,
+        "mask_ap_2d": 0.933971092319001,
+        "counts": {
+          "temporal": [
+            903,
+            92,
+            0
+          ],
+          "2d": [
+            37682,
+            5357,
+            9576
+          ]
+        }
+      }
+    },
+    {
+      "id": "C",
+      "description": "Overlapping frequency bands",
+      "recording": "Recording_1_Segment_27",
+      "start_seconds": 225,
+      "end_seconds": 230,
+      "reference_events": 4,
+      "species_codes": [
+        "AMCR",
+        "BHCO",
+        "BTNW",
+        "NOCA"
+      ],
+      "file": "C_R1S27_225-230s",
+      "cache": "artifacts/powdermill_examples_postprocessed_2026-09-07/C_R1S27_225-230s.npz",
+      "cache_sha256": "172ace5c9a749c13723ee09e0244a13ec2a075684aed7c90bd931baa7bcbb376",
+      "clip_metrics": {
+        "temporal_iou": 0.246,
+        "iou_2d": 0.09037931765204492,
+        "temporal_precision": 1.0,
+        "temporal_recall": 0.246,
+        "area_precision_2d": 0.7362333851199724,
+        "area_recall_2d": 0.09340370548815208,
+        "temporal_ap": 1.0,
+        "mask_ap_2d": 0.6966024954777192,
+        "counts": {
+          "temporal": [
+            246,
+            0,
+            754
+          ],
+          "2d": [
+            4265,
+            1528,
+            41397
+          ]
+        }
+      }
+    },
+    {
+      "id": "D",
+      "description": "Dense mixture",
+      "recording": "Recording_1_Segment_07",
+      "start_seconds": 35,
+      "end_seconds": 40,
+      "reference_events": 10,
+      "species_codes": [
+        "BCCH",
+        "EATO",
+        "NOCA",
+        "OVEN",
+        "TUTI",
+        "WOTH"
+      ],
+      "file": "D_R1S07_35-40s",
+      "cache": "artifacts/powdermill_examples_postprocessed_2026-09-07/D_R1S07_35-40s.npz",
+      "cache_sha256": "626116aa506a000020b187d564c2c209f3fe43d7991533425310e366ee6745bf",
+      "clip_metrics": {
+        "temporal_iou": 0.153,
+        "iou_2d": 0.07863918047299862,
+        "temporal_precision": 1.0,
+        "temporal_recall": 0.153,
+        "area_precision_2d": 1.0,
+        "area_recall_2d": 0.07863918047299862,
+        "temporal_ap": 1.0,
+        "mask_ap_2d": 0.9055464279218045,
+        "counts": {
+          "temporal": [
+            153,
+            0,
+            847
+          ],
+          "2d": [
+            3109,
+            0,
+            36426
+          ]
+        }
+      }
+    }
+  ],
+  "raw_threshold": 0.07,
+  "postprocessing": {
+    "low": 0.22,
+    "high": 0.45,
+    "sigma": [
+      2,
+      3
+    ],
+    "minimum_area": 32,
+    "minimum_width": 3,
+    "scope": "full_segment_before_crop",
+    "smoothing_space": "log_odds",
+    "sigma_units": [
+      "mel_bins",
+      "5ms_frames"
+    ],
+    "hysteresis_connectivity": 8,
+    "closing_mel_time": [
+      3,
+      5
+    ],
+    "component_connectivity": 4,
+    "fill_holes": true,
+    "implementation_sha256": "2273ad24ca080f22635012d64c52d3ef48d1f033ce1f9990f6346efca54ecb1c"
+  },
+  "plotter_sha256": "cba29e8035eb1c0d17ed8186d2c1408a97ede84a5c990765458ce65398766b9a"
+}
