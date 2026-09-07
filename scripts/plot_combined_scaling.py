@@ -40,7 +40,7 @@ def main():
     plt.rcParams.update({"font.size": 10, "axes.labelsize": 10, "axes.titlesize": 10,
         "xtick.labelsize": 9.5, "ytick.labelsize": 10, "pdf.fonttype": 42, "svg.fonttype": "none"})
     fig, (left, right) = plt.subplots(1, 2, sharey=True, figsize=(3.5, 3.5))
-    fig.subplots_adjust(left=.17, right=.98, bottom=.17, top=.81, wspace=.16)
+    fig.subplots_adjust(left=.17, right=.98, bottom=.17, top=.91, wspace=.16)
     left.plot(seconds, label_ap, color=".55", marker="o", linewidth=1.6, markersize=4.5)
     left.plot(seconds[-1], label_ap[-1], color="C0", marker="o", markersize=6, zorder=4)
     left.set_xscale("log")
@@ -54,7 +54,8 @@ def main():
     right.set(xlim=(-.6, 2.6), xlabel="Backbone", title="(b) Model size")
     for axis in (left, right):
         baseline = axis.axhline(teacher_ap, color=".25", linestyle="--", linewidth=1.2, zorder=3)
-    fig.legend([baseline], ["Qwen self-review"], loc="upper center", bbox_to_anchor=(.56, .99), frameon=False)
+    left.legend([baseline], ["Qwen_teacher\nlabels"], loc="lower right", frameon=False,
+        fontsize=9.5, handlelength=1.3, handletextpad=.5)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     for suffix in (".png", ".pdf", ".svg"):
         fig.savefig(args.out.with_suffix(suffix), dpi=600, facecolor="white")
