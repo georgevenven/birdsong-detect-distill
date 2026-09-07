@@ -1,0 +1,193 @@
+{
+  "comparison": "results/qwen_teacher_powdermill/backbone_self_review_10000s_2026-09-07/large/comparison.json",
+  "comparison_sha256": "7079d50dc7182570efb0493a8e6f7b25de1e78fd36d629d21284da8eef11d063",
+  "checkpoint": "artifacts/qwen_ablation_ap_10000/self_review-s10000.pt",
+  "checkpoint_sha256": "13a3280ddee03120043882627c2a00a5683c0300615d98bfb12c54335659916c",
+  "backbone_revision": "f4eb120734c01ae8bb89f314cf77eefbc2ef8b4e",
+  "threshold": 0.07,
+  "inference": {
+    "window_seconds": 5,
+    "stride_seconds": 2.5,
+    "overlap_aggregation": "maximum",
+    "postprocessing": "none",
+    "autocast": "float16",
+    "device": "cuda:0",
+    "visible_devices": "GPU-8d9ddeaf-7d5c-60bf-69f8-eb10172a2556"
+  },
+  "visible_devices": "GPU-8d9ddeaf-7d5c-60bf-69f8-eb10172a2556",
+  "selection": "Four qualitative candidates chosen for human-annotation structure and visual variety; not a representative sample.",
+  "display": {
+    "seconds": 5,
+    "frequency_scale": "mel",
+    "frequency_hz": [
+      20,
+      16000
+    ],
+    "spectrogram_db": [
+      -70,
+      0
+    ],
+    "reference": "full_segment_maximum",
+    "postprocessing": "none"
+  },
+  "examples": [
+    {
+      "id": "A",
+      "description": "Sparse vocalizations",
+      "recording": "Recording_1_Segment_13",
+      "start_seconds": 105,
+      "end_seconds": 110,
+      "reference_events": 2,
+      "species_codes": [
+        "EATO",
+        "OVEN"
+      ],
+      "file": "A_R1S13_105-110s",
+      "cache": "artifacts/powdermill_examples_2026-09-07/A_R1S13_105-110s.npz",
+      "cache_sha256": "4dc9d49e1d4a93073808eba02b70909ea6ceb304f5123fcef7fd475bf6aa3f27",
+      "clip_metrics": {
+        "temporal_iou": 0.6508771929824562,
+        "iou_2d": 0.5484247919977564,
+        "temporal_precision": 0.6508771929824562,
+        "temporal_recall": 1.0,
+        "area_precision_2d": 0.5536784483979048,
+        "area_recall_2d": 0.9829926273458445,
+        "temporal_ap": 0.9722340707341524,
+        "mask_ap_2d": 0.9243921580775554,
+        "counts": {
+          "temporal": [
+            371,
+            199,
+            0
+          ],
+          "2d": [
+            11733,
+            9458,
+            203
+          ]
+        }
+      }
+    },
+    {
+      "id": "B",
+      "description": "Repeated song phrase",
+      "recording": "Recording_1_Segment_08",
+      "start_seconds": 80,
+      "end_seconds": 85,
+      "reference_events": 7,
+      "species_codes": [
+        "EATO",
+        "NOCA",
+        "OVEN",
+        "TUTI",
+        "WOTH"
+      ],
+      "file": "B_R1S08_80-85s",
+      "cache": "artifacts/powdermill_examples_2026-09-07/B_R1S08_80-85s.npz",
+      "cache_sha256": "8e1e85d6d70a9f35501523da70a97df54c966e2c8e82abea91cc7149e1f07b55",
+      "clip_metrics": {
+        "temporal_iou": 0.903,
+        "iou_2d": 0.70992009719172,
+        "temporal_precision": 0.903,
+        "temporal_recall": 1.0,
+        "area_precision_2d": 0.728984070117075,
+        "area_recall_2d": 0.9644716238520462,
+        "temporal_ap": 0.9827227141774862,
+        "mask_ap_2d": 0.9220335173988141,
+        "counts": {
+          "temporal": [
+            903,
+            97,
+            0
+          ],
+          "2d": [
+            45579,
+            16945,
+            1679
+          ]
+        }
+      }
+    },
+    {
+      "id": "C",
+      "description": "Overlapping frequency bands",
+      "recording": "Recording_1_Segment_27",
+      "start_seconds": 225,
+      "end_seconds": 230,
+      "reference_events": 4,
+      "species_codes": [
+        "AMCR",
+        "BHCO",
+        "BTNW",
+        "NOCA"
+      ],
+      "file": "C_R1S27_225-230s",
+      "cache": "artifacts/powdermill_examples_2026-09-07/C_R1S27_225-230s.npz",
+      "cache_sha256": "2c960acbd4502f1fd19f50eaa3872fa97f12c2a8c691c10491580030bdd83223",
+      "clip_metrics": {
+        "temporal_iou": 0.76,
+        "iou_2d": 0.3465531789998899,
+        "temporal_precision": 1.0,
+        "temporal_recall": 0.76,
+        "area_precision_2d": 0.6809400230680508,
+        "area_recall_2d": 0.4137357102185625,
+        "temporal_ap": 1.0,
+        "mask_ap_2d": 0.687038438843554,
+        "counts": {
+          "temporal": [
+            760,
+            0,
+            240
+          ],
+          "2d": [
+            18892,
+            8852,
+            26770
+          ]
+        }
+      }
+    },
+    {
+      "id": "D",
+      "description": "Dense mixture",
+      "recording": "Recording_1_Segment_07",
+      "start_seconds": 35,
+      "end_seconds": 40,
+      "reference_events": 10,
+      "species_codes": [
+        "BCCH",
+        "EATO",
+        "NOCA",
+        "OVEN",
+        "TUTI",
+        "WOTH"
+      ],
+      "file": "D_R1S07_35-40s",
+      "cache": "artifacts/powdermill_examples_2026-09-07/D_R1S07_35-40s.npz",
+      "cache_sha256": "e1ac15dc45efe37514dac20f943003d169daf3bdbb3f2d9f603c3d7a368c3752",
+      "clip_metrics": {
+        "temporal_iou": 0.943,
+        "iou_2d": 0.5904656980880901,
+        "temporal_precision": 1.0,
+        "temporal_recall": 0.943,
+        "area_precision_2d": 0.8644489247311828,
+        "area_recall_2d": 0.650714556721892,
+        "temporal_ap": 1.0,
+        "mask_ap_2d": 0.8886296710684631,
+        "counts": {
+          "temporal": [
+            943,
+            0,
+            57
+          ],
+          "2d": [
+            25726,
+            4034,
+            13809
+          ]
+        }
+      }
+    }
+  ],
+  "plotter_sha256": "7f1988ef8132fa988907f93638acfc4efe84ff627287be29e31b4f9e41a1ef59"
+}
