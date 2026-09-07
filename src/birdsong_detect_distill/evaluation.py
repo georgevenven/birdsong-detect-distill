@@ -40,13 +40,15 @@ def wabad(root, sites=WABAD_SITES):
                 yield f"{site}/{name}", audio(archive, member), tables.get(name, np.empty((0, 4)))
 
 
-def powdermill(root):
+def powdermill(root, recordings=None):
     with zipfile.ZipFile(root / "powdermill" / "wav_Files.zip") as sounds, zipfile.ZipFile(root / "powdermill" / "annotation_Files.zip") as labels:
         members = {Path(name).stem: name for name in sounds.namelist() if name.lower().endswith(".wav")}
         for member in labels.namelist():
             if member.lower().endswith(".txt"):
                 table = pd.read_csv(labels.open(member), sep="\t")
                 stem = Path(member).name.split(".Table")[0]
+                if recordings is not None and stem not in recordings:
+                    continue
                 columns = ["Begin Time (s)", "End Time (s)", "Low Freq (Hz)", "High Freq (Hz)"]
                 yield stem, audio(sounds, members[stem]), table[columns].to_numpy(float)
 

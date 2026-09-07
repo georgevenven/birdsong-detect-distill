@@ -11,3 +11,4 @@ models/*.pt
 data/yolo/
 artifacts/yolo/
 weights/
+song-detect-paper/
