@@ -1,0 +1,49 @@
+{
+  "git_commit_at_launch": "12b65687ae9b4179181e73fac076810df4fe986d",
+  "runner": "scripts/run_self_review_backbones.sh",
+  "annotations": "data/annotations/xcl/ablation_2500/ap_10000/10000s/self_review.jsonl",
+  "annotations_sha256": "baed2ace91476d090a1155b2fca902a07521f42f61e881b8cab82755890446dd",
+  "training_seconds": 10000.0,
+  "training_windows": 2103,
+  "training_recordings": 266,
+  "teacher_stage": "self_review",
+  "training": {
+    "backbone_frozen": true,
+    "train_all": true,
+    "epochs": 3,
+    "batch_size": 16,
+    "accumulation": 1,
+    "seed": 0,
+    "hidden": 128,
+    "dropout": 0.1,
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "tv_weight": 0.001,
+    "target_smoothing_mel_time": [31, 3]
+  },
+  "backbone_revisions": {
+    "micro": "78a7f7e959e76d791d6ee6d8f761cb139c8654e4",
+    "base": "d47970abb03ad01c575bd98ed21932283d00eaa0",
+    "large": "f4eb120734c01ae8bb89f314cf77eefbc2ef8b4e"
+  },
+  "frozen_backbone_parameters": {
+    "micro": 1751873,
+    "base": 14889409,
+    "large": 98645249
+  },
+  "trainable_head_parameters": {
+    "micro": 281888,
+    "base": 315168,
+    "large": 365088
+  },
+  "training_code_sha256": {
+    "scripts/train.py": "2e61dd455bae4ba6e7bc7a8d9eae158cbdafef5b9d6de90e2d6b94ba761391b1",
+    "src/birdsong_detect_distill/data.py": "b77c8e7dd65750eac6705c48949e1fbfd222417b4f3881997054e21856607fbd",
+    "src/birdsong_detect_distill/model.py": "2273ad24ca080f22635012d64c52d3ef48d1f033ce1f9990f6346efca54ecb1c"
+  },
+  "reused_large_checkpoint": "artifacts/qwen_ablation_ap_10000/self_review-s10000.pt",
+  "reused_large_checkpoint_sha256": "13a3280ddee03120043882627c2a00a5683c0300615d98bfb12c54335659916c",
+  "evaluation": "Fresh matched evaluation for all three models, including the reused Large checkpoint.",
+  "gpu_uuid": "GPU-8d9ddeaf-7d5c-60bf-69f8-eb10172a2556"
+}

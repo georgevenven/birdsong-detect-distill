@@ -1,0 +1,80 @@
+{
+  "dataset": "powdermill",
+  "training_seconds": 10000.0,
+  "training": {
+    "recordings": 266,
+    "rows": 2103,
+    "train_windows": 2103,
+    "epochs": 3,
+    "threshold_source": "uncalibrated"
+  },
+  "evaluated_seconds": 8235.0,
+  "source_recordings": [
+    "Recording_1"
+  ],
+  "segments": 30,
+  "aggregation": "segment_mean",
+  "qwen_self_review": {
+    "temporal_iou": 0.6264447576842815,
+    "iou_2d": 0.36099996538609475,
+    "temporal_precision": 0.8516791717708377,
+    "temporal_recall": 0.6607074532563934,
+    "area_precision_2d": 0.7769292897521624,
+    "area_recall_2d": 0.3622203315984605,
+    "temporal_ap": 0.8592523618450536,
+    "mask_ap_2d": 0.4444487984644254
+  },
+  "models": {
+    "micro": {
+      "comparison": "micro/comparison.json",
+      "backbone": "georgeven/songmae-micro-32x1",
+      "frozen_backbone_parameters": 1751873,
+      "trainable_head_parameters": 281888,
+      "checkpoint": "artifacts/backbone_self_review_10000s_2026-09-07/micro-self_review-s10000.pt",
+      "checkpoint_sha256": "d5a53713048e5308dfe3eb601131a20b8bba41c9e23231f19e89b521db4b5487",
+      "threshold": 0.03,
+      "temporal_iou": 0.7401982096011852,
+      "iou_2d": 0.4208981897308954,
+      "temporal_precision": 0.8663748875820513,
+      "temporal_recall": 0.8226882125052507,
+      "area_precision_2d": 0.5630562936550892,
+      "area_recall_2d": 0.6220688257418007,
+      "temporal_ap": 0.9449830498172374,
+      "mask_ap_2d": 0.6490964089723099
+    },
+    "base": {
+      "comparison": "base/comparison.json",
+      "backbone": "georgeven/songmae-base-32x1",
+      "frozen_backbone_parameters": 14889409,
+      "trainable_head_parameters": 315168,
+      "checkpoint": "artifacts/backbone_self_review_10000s_2026-09-07/base-self_review-s10000.pt",
+      "checkpoint_sha256": "c71cd763a907d0484ecbc4a78d20cdbcab67d490afd1c0c9d487cf1a2f0f1fce",
+      "threshold": 0.1,
+      "temporal_iou": 0.7297829879734727,
+      "iou_2d": 0.4376815552555027,
+      "temporal_precision": 0.8003683072362796,
+      "temporal_recall": 0.8792218842008176,
+      "area_precision_2d": 0.5385631523152168,
+      "area_recall_2d": 0.714055660424214,
+      "temporal_ap": 0.9369537206733026,
+      "mask_ap_2d": 0.6990510425221784
+    },
+    "large": {
+      "comparison": "large/comparison.json",
+      "backbone": "georgeven/songmae-large-32x1",
+      "frozen_backbone_parameters": 98645249,
+      "trainable_head_parameters": 365088,
+      "checkpoint": "artifacts/qwen_ablation_ap_10000/self_review-s10000.pt",
+      "checkpoint_sha256": "13a3280ddee03120043882627c2a00a5683c0300615d98bfb12c54335659916c",
+      "threshold": 0.07,
+      "temporal_iou": 0.7731213086877587,
+      "iou_2d": 0.5050362005825512,
+      "temporal_precision": 0.8111102505554099,
+      "temporal_recall": 0.8830216799523005,
+      "area_precision_2d": 0.5699106767256481,
+      "area_recall_2d": 0.7390671926402484,
+      "temporal_ap": 0.9585411273308094,
+      "mask_ap_2d": 0.7515121702875792
+    }
+  }
+}

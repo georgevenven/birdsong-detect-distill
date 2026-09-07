@@ -1,0 +1,2441 @@
+{
+  "dataset": "powdermill",
+  "comparison": "same_completed_intervals_and_reference_masks",
+  "segments": 30,
+  "source_recordings": [
+    "Recording_1"
+  ],
+  "evaluated_seconds": 8235.0,
+  "coverage": {
+    "Recording_1_Segment_01": {
+      "seconds": 300.0,
+      "duration_seconds": 300.0,
+      "fraction": 1.0,
+      "intervals_seconds": [
+        [
+          0.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_02": {
+      "seconds": 300.0,
+      "duration_seconds": 300.0,
+      "fraction": 1.0,
+      "intervals_seconds": [
+        [
+          0.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_03": {
+      "seconds": 300.0,
+      "duration_seconds": 300.0,
+      "fraction": 1.0,
+      "intervals_seconds": [
+        [
+          0.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_04": {
+      "seconds": 300.0,
+      "duration_seconds": 300.0,
+      "fraction": 1.0,
+      "intervals_seconds": [
+        [
+          0.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_05": {
+      "seconds": 280.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.9333333333333333,
+      "intervals_seconds": [
+        [
+          0.0,
+          10.0
+        ],
+        [
+          15.0,
+          240.0
+        ],
+        [
+          245.0,
+          255.0
+        ],
+        [
+          260.0,
+          265.0
+        ],
+        [
+          270.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_06": {
+      "seconds": 275.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.9166666666666666,
+      "intervals_seconds": [
+        [
+          0.0,
+          35.0
+        ],
+        [
+          40.0,
+          125.0
+        ],
+        [
+          130.0,
+          170.0
+        ],
+        [
+          175.0,
+          265.0
+        ],
+        [
+          270.0,
+          295.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_07": {
+      "seconds": 255.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.85,
+      "intervals_seconds": [
+        [
+          0.0,
+          50.0
+        ],
+        [
+          55.0,
+          95.0
+        ],
+        [
+          100.0,
+          120.0
+        ],
+        [
+          130.0,
+          165.0
+        ],
+        [
+          170.0,
+          185.0
+        ],
+        [
+          190.0,
+          210.0
+        ],
+        [
+          215.0,
+          230.0
+        ],
+        [
+          235.0,
+          275.0
+        ],
+        [
+          280.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_08": {
+      "seconds": 250.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.8333333333333334,
+      "intervals_seconds": [
+        [
+          0.0,
+          15.0
+        ],
+        [
+          20.0,
+          25.0
+        ],
+        [
+          30.0,
+          85.0
+        ],
+        [
+          90.0,
+          115.0
+        ],
+        [
+          125.0,
+          150.0
+        ],
+        [
+          155.0,
+          195.0
+        ],
+        [
+          200.0,
+          230.0
+        ],
+        [
+          235.0,
+          275.0
+        ],
+        [
+          280.0,
+          290.0
+        ],
+        [
+          295.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_09": {
+      "seconds": 280.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.9333333333333333,
+      "intervals_seconds": [
+        [
+          0.0,
+          15.0
+        ],
+        [
+          20.0,
+          30.0
+        ],
+        [
+          35.0,
+          95.0
+        ],
+        [
+          100.0,
+          200.0
+        ],
+        [
+          205.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_10": {
+      "seconds": 285.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.95,
+      "intervals_seconds": [
+        [
+          0.0,
+          5.0
+        ],
+        [
+          10.0,
+          90.0
+        ],
+        [
+          95.0,
+          125.0
+        ],
+        [
+          130.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_11": {
+      "seconds": 280.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.9333333333333333,
+      "intervals_seconds": [
+        [
+          0.0,
+          30.0
+        ],
+        [
+          35.0,
+          50.0
+        ],
+        [
+          55.0,
+          115.0
+        ],
+        [
+          120.0,
+          150.0
+        ],
+        [
+          155.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_12": {
+      "seconds": 275.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.9166666666666666,
+      "intervals_seconds": [
+        [
+          0.0,
+          65.0
+        ],
+        [
+          70.0,
+          165.0
+        ],
+        [
+          170.0,
+          175.0
+        ],
+        [
+          180.0,
+          195.0
+        ],
+        [
+          205.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_13": {
+      "seconds": 285.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.95,
+      "intervals_seconds": [
+        [
+          0.0,
+          30.0
+        ],
+        [
+          35.0,
+          80.0
+        ],
+        [
+          85.0,
+          290.0
+        ],
+        [
+          295.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_14": {
+      "seconds": 275.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.9166666666666666,
+      "intervals_seconds": [
+        [
+          0.0,
+          55.0
+        ],
+        [
+          60.0,
+          65.0
+        ],
+        [
+          70.0,
+          75.0
+        ],
+        [
+          80.0,
+          85.0
+        ],
+        [
+          90.0,
+          105.0
+        ],
+        [
+          110.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_15": {
+      "seconds": 275.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.9166666666666666,
+      "intervals_seconds": [
+        [
+          0.0,
+          5.0
+        ],
+        [
+          10.0,
+          40.0
+        ],
+        [
+          45.0,
+          115.0
+        ],
+        [
+          120.0,
+          165.0
+        ],
+        [
+          175.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_16": {
+      "seconds": 290.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.9666666666666667,
+      "intervals_seconds": [
+        [
+          0.0,
+          275.0
+        ],
+        [
+          280.0,
+          290.0
+        ],
+        [
+          295.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_17": {
+      "seconds": 285.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.95,
+      "intervals_seconds": [
+        [
+          0.0,
+          20.0
+        ],
+        [
+          25.0,
+          100.0
+        ],
+        [
+          105.0,
+          250.0
+        ],
+        [
+          255.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_18": {
+      "seconds": 280.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.9333333333333333,
+      "intervals_seconds": [
+        [
+          0.0,
+          20.0
+        ],
+        [
+          25.0,
+          80.0
+        ],
+        [
+          85.0,
+          170.0
+        ],
+        [
+          175.0,
+          200.0
+        ],
+        [
+          205.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_19": {
+      "seconds": 285.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.95,
+      "intervals_seconds": [
+        [
+          0.0,
+          30.0
+        ],
+        [
+          35.0,
+          55.0
+        ],
+        [
+          60.0,
+          140.0
+        ],
+        [
+          145.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_20": {
+      "seconds": 295.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.9833333333333333,
+      "intervals_seconds": [
+        [
+          0.0,
+          285.0
+        ],
+        [
+          290.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_21": {
+      "seconds": 285.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.95,
+      "intervals_seconds": [
+        [
+          0.0,
+          20.0
+        ],
+        [
+          25.0,
+          125.0
+        ],
+        [
+          130.0,
+          275.0
+        ],
+        [
+          280.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_22": {
+      "seconds": 270.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.9,
+      "intervals_seconds": [
+        [
+          0.0,
+          25.0
+        ],
+        [
+          30.0,
+          45.0
+        ],
+        [
+          50.0,
+          115.0
+        ],
+        [
+          120.0,
+          210.0
+        ],
+        [
+          215.0,
+          220.0
+        ],
+        [
+          225.0,
+          245.0
+        ],
+        [
+          250.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_23": {
+      "seconds": 270.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.9,
+      "intervals_seconds": [
+        [
+          0.0,
+          10.0
+        ],
+        [
+          25.0,
+          125.0
+        ],
+        [
+          130.0,
+          155.0
+        ],
+        [
+          160.0,
+          215.0
+        ],
+        [
+          220.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_24": {
+      "seconds": 265.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.8833333333333333,
+      "intervals_seconds": [
+        [
+          5.0,
+          140.0
+        ],
+        [
+          145.0,
+          180.0
+        ],
+        [
+          185.0,
+          240.0
+        ],
+        [
+          245.0,
+          255.0
+        ],
+        [
+          260.0,
+          270.0
+        ],
+        [
+          275.0,
+          290.0
+        ],
+        [
+          295.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_25": {
+      "seconds": 225.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.75,
+      "intervals_seconds": [
+        [
+          0.0,
+          20.0
+        ],
+        [
+          25.0,
+          110.0
+        ],
+        [
+          125.0,
+          135.0
+        ],
+        [
+          140.0,
+          150.0
+        ],
+        [
+          155.0,
+          180.0
+        ],
+        [
+          185.0,
+          225.0
+        ],
+        [
+          235.0,
+          240.0
+        ],
+        [
+          245.0,
+          250.0
+        ],
+        [
+          255.0,
+          275.0
+        ],
+        [
+          280.0,
+          285.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_26": {
+      "seconds": 265.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.8833333333333333,
+      "intervals_seconds": [
+        [
+          0.0,
+          15.0
+        ],
+        [
+          20.0,
+          35.0
+        ],
+        [
+          40.0,
+          55.0
+        ],
+        [
+          60.0,
+          85.0
+        ],
+        [
+          90.0,
+          140.0
+        ],
+        [
+          145.0,
+          155.0
+        ],
+        [
+          160.0,
+          210.0
+        ],
+        [
+          215.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_27": {
+      "seconds": 285.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.95,
+      "intervals_seconds": [
+        [
+          0.0,
+          30.0
+        ],
+        [
+          35.0,
+          50.0
+        ],
+        [
+          55.0,
+          240.0
+        ],
+        [
+          245.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_28": {
+      "seconds": 270.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.9,
+      "intervals_seconds": [
+        [
+          5.0,
+          25.0
+        ],
+        [
+          30.0,
+          45.0
+        ],
+        [
+          50.0,
+          135.0
+        ],
+        [
+          140.0,
+          205.0
+        ],
+        [
+          210.0,
+          295.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_29": {
+      "seconds": 270.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.9,
+      "intervals_seconds": [
+        [
+          0.0,
+          15.0
+        ],
+        [
+          20.0,
+          145.0
+        ],
+        [
+          150.0,
+          200.0
+        ],
+        [
+          205.0,
+          245.0
+        ],
+        [
+          255.0,
+          285.0
+        ],
+        [
+          290.0,
+          300.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    },
+    "Recording_1_Segment_30": {
+      "seconds": 180.0,
+      "duration_seconds": 300.0,
+      "fraction": 0.6,
+      "intervals_seconds": [
+        [
+          0.0,
+          15.0
+        ],
+        [
+          20.0,
+          120.0
+        ],
+        [
+          125.0,
+          145.0
+        ],
+        [
+          150.0,
+          170.0
+        ],
+        [
+          175.0,
+          180.0
+        ],
+        [
+          195.0,
+          200.0
+        ],
+        [
+          210.0,
+          225.0
+        ]
+      ],
+      "source_recording": "Recording_1"
+    }
+  },
+  "aggregation": "segment_mean",
+  "ap_method": "exact_noninterpolated_average_precision; undefined_without_reference_positives",
+  "empty_conventions": {
+    "empty_union_iou": 1.0,
+    "undefined_precision_recall": 0.0
+  },
+  "foreground_labels": [
+    "chorus",
+    "target_vocalization",
+    "uncertain_vocalization"
+  ],
+  "coordinate_space": "200_hz_time_x_128_mel_frequency",
+  "qwen_variant": "self_review",
+  "qwen_operating_point": "union_of_all_emitted_foreground_boxes_without_confidence_filtering",
+  "teacher_results": "results/qwen_teacher_powdermill/partial_1677_windows_2026-09-07.json",
+  "teacher_results_sha256": "840ac3fa2154dc8ec6b657e3e29a89da97ca17c6992be33ff80dffc759c353d3",
+  "checkpoint": "artifacts/backbone_self_review_10000s_2026-09-07/micro-self_review-s10000.pt",
+  "checkpoint_sha256": "d5a53713048e5308dfe3eb601131a20b8bba41c9e23231f19e89b521db4b5487",
+  "backbone": "georgeven/songmae-micro-32x1",
+  "backbone_revision": "78a7f7e959e76d791d6ee6d8f761cb139c8654e4",
+  "training": {
+    "recordings": 266,
+    "rows": 2103,
+    "train_windows": 2103,
+    "epochs": 3,
+    "threshold_source": "uncalibrated"
+  },
+  "student_probability_threshold": 0.03,
+  "student_inference": {
+    "window_seconds": 5,
+    "stride_seconds": 2.5,
+    "overlap_aggregation": "maximum",
+    "postprocessing": "none",
+    "autocast": "float16",
+    "device": "cuda:0",
+    "visible_devices": "GPU-8d9ddeaf-7d5c-60bf-69f8-eb10172a2556"
+  },
+  "calibration": {
+    "selection": "maximum_mean_2d_iou_on_other_source_recordings",
+    "threshold": 0.03,
+    "mean_iou_2d": 0.44609347660166765,
+    "segments": 41,
+    "source_recordings": [
+      "Recording_2",
+      "Recording_3",
+      "Recording_4"
+    ],
+    "threshold_grid": [
+      0.0,
+      0.01,
+      0.02,
+      0.03,
+      0.04,
+      0.05,
+      0.06,
+      0.07,
+      0.08,
+      0.09,
+      0.1,
+      0.11,
+      0.12,
+      0.13,
+      0.14,
+      0.15,
+      0.16,
+      0.17,
+      0.18,
+      0.19,
+      0.2,
+      0.21,
+      0.22,
+      0.23,
+      0.24,
+      0.25,
+      0.26,
+      0.27,
+      0.28,
+      0.29,
+      0.3,
+      0.31,
+      0.32,
+      0.33,
+      0.34,
+      0.35000000000000003,
+      0.36,
+      0.37,
+      0.38,
+      0.39,
+      0.4,
+      0.41000000000000003,
+      0.42,
+      0.43,
+      0.44,
+      0.45,
+      0.46,
+      0.47000000000000003,
+      0.48,
+      0.49,
+      0.5,
+      0.51,
+      0.52,
+      0.53,
+      0.54,
+      0.55,
+      0.56,
+      0.5700000000000001,
+      0.58,
+      0.59,
+      0.6,
+      0.61,
+      0.62,
+      0.63,
+      0.64,
+      0.65,
+      0.66,
+      0.67,
+      0.68,
+      0.6900000000000001,
+      0.7000000000000001,
+      0.71,
+      0.72,
+      0.73,
+      0.74,
+      0.75,
+      0.76,
+      0.77,
+      0.78,
+      0.79,
+      0.8,
+      0.81,
+      0.8200000000000001,
+      0.8300000000000001,
+      0.84,
+      0.85,
+      0.86,
+      0.87,
+      0.88,
+      0.89,
+      0.9,
+      0.91,
+      0.92,
+      0.93,
+      0.9400000000000001,
+      0.9500000000000001,
+      0.96,
+      0.97,
+      0.98,
+      0.99,
+      1.0
+    ]
+  },
+  "code_sha256": {
+    "/home/george-vengrovski/Documents/birdsong-detect-distill/scripts/compare_qwen_songmae.py": "30a475f27253a04228d7a51c0c9c5c6e832f85424d05428355b0087bc6f253e5",
+    "scripts/evaluate_qwen_teacher.py": "0d1843be9971286095d299ca22dd23abee01d88674dcc17ca185811219d57ddd",
+    "scripts/evaluate_2d.py": "17b30be67838c0c0c74736c6b0329de13362e3e053c7077611135e79db127cc0",
+    "src/birdsong_detect_distill/model.py": "2273ad24ca080f22635012d64c52d3ef48d1f033ce1f9990f6346efca54ecb1c",
+    "src/birdsong_detect_distill/evaluation.py": "6575b40c27da00bf045dd76d939d3c7ca576144e2645f3082ff85136b9da8e75"
+  },
+  "models": {
+    "qwen": {
+      "temporal_iou": 0.6264447576842815,
+      "iou_2d": 0.36099996538609475,
+      "temporal_precision": 0.8516791717708377,
+      "temporal_recall": 0.6607074532563934,
+      "area_precision_2d": 0.7769292897521624,
+      "area_recall_2d": 0.3622203315984605,
+      "temporal_ap": 0.8592523618450536,
+      "mask_ap_2d": 0.4444487984644254
+    },
+    "songmae": {
+      "temporal_iou": 0.7401982096011852,
+      "iou_2d": 0.4208981897308954,
+      "temporal_precision": 0.8663748875820513,
+      "temporal_recall": 0.8226882125052507,
+      "area_precision_2d": 0.5630562936550892,
+      "area_recall_2d": 0.6220688257418007,
+      "temporal_ap": 0.9449830498172374,
+      "mask_ap_2d": 0.6490964089723099
+    }
+  },
+  "pooled": {
+    "qwen": {
+      "temporal": {
+        "iou": 0.6112141813213581,
+        "precision": 0.8851014906333169,
+        "recall": 0.6638899443196715
+      },
+      "2d": {
+        "iou": 0.31402043893494647,
+        "precision": 0.8069373392308477,
+        "recall": 0.33952946393605354
+      }
+    },
+    "songmae": {
+      "temporal": {
+        "iou": 0.7877378130660875,
+        "precision": 0.8934776964326968,
+        "recall": 0.8693869593845921
+      },
+      "2d": {
+        "iou": 0.43355453970409324,
+        "precision": 0.5853687499955822,
+        "recall": 0.6257078296562705
+      }
+    }
+  },
+  "student_minus_teacher": {
+    "temporal_iou": 0.11375345191690367,
+    "iou_2d": 0.05989822434480063,
+    "temporal_precision": 0.014695715811213539,
+    "temporal_recall": 0.16198075924885735,
+    "area_precision_2d": -0.2138729960970731,
+    "area_recall_2d": 0.25984849414334016,
+    "temporal_ap": 0.08573068797218375,
+    "mask_ap_2d": 0.2046476105078845
+  },
+  "per_recording": {
+    "Recording_1_Segment_01": {
+      "qwen": {
+        "temporal_iou": 1.0,
+        "iou_2d": 1.0,
+        "temporal_precision": 0.0,
+        "temporal_recall": 0.0,
+        "area_precision_2d": 0.0,
+        "area_recall_2d": 0.0,
+        "temporal_ap": null,
+        "mask_ap_2d": null,
+        "counts": {
+          "temporal": [
+            0,
+            0,
+            0
+          ],
+          "2d": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.0,
+        "iou_2d": 0.0,
+        "temporal_precision": 0.0,
+        "temporal_recall": 0.0,
+        "area_precision_2d": 0.0,
+        "area_recall_2d": 0.0,
+        "temporal_ap": null,
+        "mask_ap_2d": null,
+        "counts": {
+          "temporal": [
+            0,
+            4,
+            0
+          ],
+          "2d": [
+            0,
+            5,
+            0
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_02": {
+      "qwen": {
+        "temporal_iou": 0.40613496932515336,
+        "iou_2d": 0.25670933113129646,
+        "temporal_precision": 0.7438202247191011,
+        "temporal_recall": 0.47218259629101283,
+        "area_precision_2d": 0.7589258468111078,
+        "area_recall_2d": 0.2795010114632502,
+        "temporal_ap": 0.3864380902534183,
+        "mask_ap_2d": 0.22791794556373546,
+        "counts": {
+          "temporal": [
+            331,
+            114,
+            370
+          ],
+          "2d": [
+            2487,
+            790,
+            6411
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.4759887005649718,
+        "iou_2d": 0.233398291110778,
+        "temporal_precision": 0.9796511627906976,
+        "temporal_recall": 0.48074179743223966,
+        "area_precision_2d": 0.41201376025403547,
+        "area_recall_2d": 0.34996628455832773,
+        "temporal_ap": 0.6965406624615624,
+        "mask_ap_2d": 0.29314962583433013,
+        "counts": {
+          "temporal": [
+            337,
+            7,
+            364
+          ],
+          "2d": [
+            3114,
+            4444,
+            5784
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_03": {
+      "qwen": {
+        "temporal_iou": 0.6102102102102102,
+        "iou_2d": 0.32410671999158025,
+        "temporal_precision": 0.775178026449644,
+        "temporal_recall": 0.741425443930917,
+        "area_precision_2d": 0.7678354371201496,
+        "area_recall_2d": 0.3593191663141928,
+        "temporal_ap": 0.5762659678513805,
+        "mask_ap_2d": 0.2726329001255546,
+        "counts": {
+          "temporal": [
+            3048,
+            884,
+            1063
+          ],
+          "2d": [
+            24636,
+            7449,
+            43927
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.6466591166477916,
+        "iou_2d": 0.367334686284458,
+        "temporal_precision": 0.9037670148781259,
+        "temporal_recall": 0.6944782291413282,
+        "area_precision_2d": 0.4664154265713243,
+        "area_recall_2d": 0.6335924624068375,
+        "temporal_ap": 0.8719396888101014,
+        "mask_ap_2d": 0.49563899905974723,
+        "counts": {
+          "temporal": [
+            2855,
+            304,
+            1256
+          ],
+          "2d": [
+            43441,
+            49697,
+            25122
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_04": {
+      "qwen": {
+        "temporal_iou": 0.6601986960571251,
+        "iou_2d": 0.3486551651286028,
+        "temporal_precision": 0.7388169894901416,
+        "temporal_recall": 0.86119266983902,
+        "area_precision_2d": 0.7919624790354579,
+        "area_recall_2d": 0.38380682703673424,
+        "temporal_ap": 0.779113411890085,
+        "mask_ap_2d": 0.394195458325703,
+        "counts": {
+          "temporal": [
+            17012,
+            6014,
+            2742
+          ],
+          "2d": [
+            320154,
+            84100,
+            514000
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.7383890684003581,
+        "iou_2d": 0.5434966094507186,
+        "temporal_precision": 0.7617269076305221,
+        "temporal_recall": 0.9601599676014985,
+        "area_precision_2d": 0.6344710442228794,
+        "area_recall_2d": 0.7912507762355632,
+        "temporal_ap": 0.9383258407356252,
+        "mask_ap_2d": 0.7719866653698491,
+        "counts": {
+          "temporal": [
+            18967,
+            5933,
+            787
+          ],
+          "2d": [
+            660025,
+            380251,
+            174129
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_05": {
+      "qwen": {
+        "temporal_iou": 0.6605863734799267,
+        "iou_2d": 0.30667776608279945,
+        "temporal_precision": 0.8573745090267018,
+        "temporal_recall": 0.7421397379912664,
+        "area_precision_2d": 0.8587671764126322,
+        "area_recall_2d": 0.3229669994394659,
+        "temporal_ap": 0.8441059144644634,
+        "mask_ap_2d": 0.40929640046146265,
+        "counts": {
+          "temporal": [
+            23793,
+            3958,
+            8267
+          ],
+          "2d": [
+            409662,
+            67373,
+            858771
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.7901646963139396,
+        "iou_2d": 0.5185956566389777,
+        "temporal_precision": 0.9199526547176192,
+        "temporal_recall": 0.8485028072364317,
+        "area_precision_2d": 0.7533760205081004,
+        "area_recall_2d": 0.6246384318288786,
+        "temporal_ap": 0.9611359577859403,
+        "mask_ap_2d": 0.7550315192638625,
+        "counts": {
+          "temporal": [
+            27203,
+            2367,
+            4857
+          ],
+          "2d": [
+            792312,
+            259370,
+            476121
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_06": {
+      "qwen": {
+        "temporal_iou": 0.6327258743350354,
+        "iou_2d": 0.21695307085932086,
+        "temporal_precision": 0.9153453871117293,
+        "temporal_recall": 0.6720522828356177,
+        "area_precision_2d": 0.699109192795383,
+        "area_recall_2d": 0.23929742089475944,
+        "temporal_ap": 0.8766536753898652,
+        "mask_ap_2d": 0.3509295484875195,
+        "counts": {
+          "temporal": [
+            29616,
+            2739,
+            14452
+          ],
+          "2d": [
+            400721,
+            172467,
+            1273852
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.8006141207092891,
+        "iou_2d": 0.4355020186047015,
+        "temporal_precision": 0.8851592886530723,
+        "temporal_recall": 0.8934147227012799,
+        "area_precision_2d": 0.6398479892283758,
+        "area_recall_2d": 0.576924386097232,
+        "temporal_ap": 0.9053366147310618,
+        "mask_ap_2d": 0.5730483416712393,
+        "counts": {
+          "temporal": [
+            39371,
+            5108,
+            4697
+          ],
+          "2d": [
+            966102,
+            543791,
+            708471
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_07": {
+      "qwen": {
+        "temporal_iou": 0.6173935208787135,
+        "iou_2d": 0.28455900294388864,
+        "temporal_precision": 0.9315082861338368,
+        "temporal_recall": 0.6467532467532467,
+        "area_precision_2d": 0.8636781582662958,
+        "area_recall_2d": 0.29794084448535046,
+        "temporal_ap": 0.9108999030379181,
+        "mask_ap_2d": 0.42510036440093957,
+        "counts": {
+          "temporal": [
+            26643,
+            1959,
+            14552
+          ],
+          "2d": [
+            448990,
+            70868,
+            1057987
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.7052410601397934,
+        "iou_2d": 0.430923171116871,
+        "temporal_precision": 0.9760953544425001,
+        "temporal_recall": 0.7176356353926447,
+        "area_precision_2d": 0.7912637977975362,
+        "area_recall_2d": 0.48619255635620184,
+        "temporal_ap": 0.975699761187525,
+        "mask_ap_2d": 0.7227295784644084,
+        "counts": {
+          "temporal": [
+            29563,
+            724,
+            11632
+          ],
+          "2d": [
+            732681,
+            193282,
+            774296
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_08": {
+      "qwen": {
+        "temporal_iou": 0.7196768255266925,
+        "iou_2d": 0.3963266602146053,
+        "temporal_precision": 0.9059542967492759,
+        "temporal_recall": 0.7777839182094501,
+        "area_precision_2d": 0.8398882646885378,
+        "area_recall_2d": 0.4287178180739704,
+        "temporal_ap": 0.8996404258362188,
+        "mask_ap_2d": 0.5092243014670272,
+        "counts": {
+          "temporal": [
+            28148,
+            2922,
+            8042
+          ],
+          "2d": [
+            676509,
+            128966,
+            901473
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.8386236916756333,
+        "iou_2d": 0.6065577299731231,
+        "temporal_precision": 0.8794204385177586,
+        "temporal_recall": 0.9475822050290136,
+        "area_precision_2d": 0.7122244124234405,
+        "area_recall_2d": 0.8034736771395364,
+        "temporal_ap": 0.9733960893920084,
+        "mask_ap_2d": 0.8016230475852704,
+        "counts": {
+          "temporal": [
+            34293,
+            4702,
+            1897
+          ],
+          "2d": [
+            1267867,
+            512284,
+            310115
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_09": {
+      "qwen": {
+        "temporal_iou": 0.6787942059245726,
+        "iou_2d": 0.44370470635392145,
+        "temporal_precision": 0.7965940763882507,
+        "temporal_recall": 0.8211151101850098,
+        "area_precision_2d": 0.7459006734873419,
+        "area_recall_2d": 0.5227145364214253,
+        "temporal_ap": 0.8423150700371203,
+        "mask_ap_2d": 0.524639603699819,
+        "counts": {
+          "temporal": [
+            26008,
+            6641,
+            5666
+          ],
+          "2d": [
+            651997,
+            222110,
+            595332
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.7166738827151585,
+        "iou_2d": 0.4874859333667847,
+        "temporal_precision": 0.7505983121299912,
+        "temporal_recall": 0.9406768958767443,
+        "area_precision_2d": 0.554060788072276,
+        "area_recall_2d": 0.8022558603223368,
+        "temporal_ap": 0.9030185842895546,
+        "mask_ap_2d": 0.7096840185067774,
+        "counts": {
+          "temporal": [
+            29795,
+            9900,
+            1879
+          ],
+          "2d": [
+            1000677,
+            805401,
+            246652
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_10": {
+      "qwen": {
+        "temporal_iou": 0.6876858712636725,
+        "iou_2d": 0.40504717971447235,
+        "temporal_precision": 0.8432014833127318,
+        "temporal_recall": 0.788521558201364,
+        "area_precision_2d": 0.8327098881995024,
+        "area_recall_2d": 0.4409268737848669,
+        "temporal_ap": 0.8711061199852795,
+        "mask_ap_2d": 0.4884552300374826,
+        "counts": {
+          "temporal": [
+            27286,
+            5074,
+            7318
+          ],
+          "2d": [
+            555634,
+            111626,
+            704516
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.8029898284187814,
+        "iou_2d": 0.5863741743400461,
+        "temporal_precision": 0.8783928069682495,
+        "temporal_recall": 0.9034215697607213,
+        "area_precision_2d": 0.6944943890752611,
+        "area_recall_2d": 0.7902019600841169,
+        "temporal_ap": 0.9591835512377864,
+        "mask_ap_2d": 0.7981604309322674,
+        "counts": {
+          "temporal": [
+            31262,
+            4328,
+            3342
+          ],
+          "2d": [
+            995773,
+            438037,
+            264377
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_11": {
+      "qwen": {
+        "temporal_iou": 0.7384861932938857,
+        "iou_2d": 0.4334533111301464,
+        "temporal_precision": 0.8874174147483187,
+        "temporal_recall": 0.8148258977149075,
+        "area_precision_2d": 0.8167973608074672,
+        "area_recall_2d": 0.4801322057114714,
+        "temporal_ap": 0.8843870298548149,
+        "mask_ap_2d": 0.4981759093575486,
+        "counts": {
+          "temporal": [
+            29953,
+            3800,
+            6807
+          ],
+          "2d": [
+            623927,
+            139943,
+            675563
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.7684417340715981,
+        "iou_2d": 0.5387725443643441,
+        "temporal_precision": 0.9253080160997942,
+        "temporal_recall": 0.8192600652883569,
+        "area_precision_2d": 0.6659249439543584,
+        "area_recall_2d": 0.7383342695980731,
+        "temporal_ap": 0.9596492137867134,
+        "mask_ap_2d": 0.7539273387336204,
+        "counts": {
+          "temporal": [
+            30116,
+            2431,
+            6644
+          ],
+          "2d": [
+            959458,
+            481332,
+            340032
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_12": {
+      "qwen": {
+        "temporal_iou": 0.7692209254709255,
+        "iou_2d": 0.4436869227498741,
+        "temporal_precision": 0.9017131199183943,
+        "temporal_recall": 0.8396189518381942,
+        "area_precision_2d": 0.8149686652764739,
+        "area_recall_2d": 0.4933884810188127,
+        "temporal_ap": 0.8984479721697787,
+        "mask_ap_2d": 0.4973987555536614,
+        "counts": {
+          "temporal": [
+            30055,
+            3276,
+            5741
+          ],
+          "2d": [
+            588572,
+            133630,
+            604346
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.8174933917557689,
+        "iou_2d": 0.5143233655311732,
+        "temporal_precision": 0.8470858214479593,
+        "temporal_recall": 0.9590177673483071,
+        "area_precision_2d": 0.5879520021671222,
+        "area_recall_2d": 0.8041927441785605,
+        "temporal_ap": 0.9476045870674518,
+        "mask_ap_2d": 0.7195711068978008,
+        "counts": {
+          "temporal": [
+            34329,
+            6197,
+            1467
+          ],
+          "2d": [
+            959336,
+            672321,
+            233582
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_13": {
+      "qwen": {
+        "temporal_iou": 0.6882856861522303,
+        "iou_2d": 0.4925987152843378,
+        "temporal_precision": 0.7865716429107277,
+        "temporal_recall": 0.8463494369778424,
+        "area_precision_2d": 0.7456610410641576,
+        "area_recall_2d": 0.5920810234662625,
+        "temporal_ap": 0.8482006472177623,
+        "mask_ap_2d": 0.534921723761867,
+        "counts": {
+          "temporal": [
+            20970,
+            5690,
+            3807
+          ],
+          "2d": [
+            417172,
+            142294,
+            287414
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.6597214606864787,
+        "iou_2d": 0.42981859031367226,
+        "temporal_precision": 0.6728741995917569,
+        "temporal_recall": 0.9712233119425273,
+        "area_precision_2d": 0.44834214722240434,
+        "area_recall_2d": 0.912305949876949,
+        "temporal_ap": 0.943774539256973,
+        "mask_ap_2d": 0.7392321122493694,
+        "counts": {
+          "temporal": [
+            24064,
+            11699,
+            713
+          ],
+          "2d": [
+            642798,
+            790924,
+            61788
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_14": {
+      "qwen": {
+        "temporal_iou": 0.710018742141349,
+        "iou_2d": 0.46181530898876405,
+        "temporal_precision": 0.8909529338215594,
+        "temporal_recall": 0.7775930160049885,
+        "area_precision_2d": 0.7554197935574761,
+        "area_recall_2d": 0.543005926009593,
+        "temporal_ap": 0.8856178403531481,
+        "mask_ap_2d": 0.5054265704660427,
+        "counts": {
+          "temporal": [
+            29928,
+            3663,
+            8560
+          ],
+          "2d": [
+            557666,
+            180554,
+            469332
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.777398111332008,
+        "iou_2d": 0.4350786392768908,
+        "temporal_precision": 0.7929825302604617,
+        "temporal_recall": 0.97534296404074,
+        "area_precision_2d": 0.47147369041242054,
+        "area_recall_2d": 0.8493103199811489,
+        "temporal_ap": 0.9545948967090977,
+        "mask_ap_2d": 0.6732450457130232,
+        "counts": {
+          "temporal": [
+            37539,
+            9800,
+            949
+          ],
+          "2d": [
+            872240,
+            977789,
+            154758
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_15": {
+      "qwen": {
+        "temporal_iou": 0.7439815179438712,
+        "iou_2d": 0.4648765686569437,
+        "temporal_precision": 0.8482190960790182,
+        "temporal_recall": 0.8582374318594791,
+        "area_precision_2d": 0.7666633184049861,
+        "area_recall_2d": 0.5414903115731624,
+        "temporal_ap": 0.8923343358614156,
+        "mask_ap_2d": 0.5303380154045958,
+        "counts": {
+          "temporal": [
+            28339,
+            5071,
+            4681
+          ],
+          "2d": [
+            625861,
+            190483,
+            529951
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.7659133572247008,
+        "iou_2d": 0.5045399754264276,
+        "temporal_precision": 0.7970621067586767,
+        "temporal_recall": 0.9514536644457904,
+        "area_precision_2d": 0.5648620721304874,
+        "area_recall_2d": 0.8253141514363928,
+        "temporal_ap": 0.9642620193059129,
+        "mask_ap_2d": 0.7287311909735197,
+        "counts": {
+          "temporal": [
+            31417,
+            7999,
+            1603
+          ],
+          "2d": [
+            953908,
+            734837,
+            201904
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_16": {
+      "qwen": {
+        "temporal_iou": 0.7237629604653123,
+        "iou_2d": 0.4932974272595202,
+        "temporal_precision": 0.8718816640151643,
+        "temporal_recall": 0.809898126021884,
+        "area_precision_2d": 0.8803897343827843,
+        "area_recall_2d": 0.5287329384138688,
+        "temporal_ap": 0.8627032809627333,
+        "mask_ap_2d": 0.5579311862980604,
+        "counts": {
+          "temporal": [
+            25758,
+            3785,
+            6046
+          ],
+          "2d": [
+            570791,
+            77548,
+            508754
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.7237212476187769,
+        "iou_2d": 0.48133743538099105,
+        "temporal_precision": 0.8831754623364908,
+        "temporal_recall": 0.8003395799270532,
+        "area_precision_2d": 0.6551914708524064,
+        "area_recall_2d": 0.6446317661607437,
+        "temporal_ap": 0.9307956753835686,
+        "mask_ap_2d": 0.7172977322924274,
+        "counts": {
+          "temporal": [
+            25454,
+            3367,
+            6350
+          ],
+          "2d": [
+            695909,
+            366237,
+            383636
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_17": {
+      "qwen": {
+        "temporal_iou": 0.6415301778817692,
+        "iou_2d": 0.4421926270898995,
+        "temporal_precision": 0.7955602167453243,
+        "temporal_recall": 0.768168776371308,
+        "area_precision_2d": 0.7876147193787505,
+        "area_recall_2d": 0.5020580449816696,
+        "temporal_ap": 0.8398969732107366,
+        "mask_ap_2d": 0.4848280677852756,
+        "counts": {
+          "temporal": [
+            22757,
+            5848,
+            6868
+          ],
+          "2d": [
+            464113,
+            125151,
+            460308
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.7382556009581513,
+        "iou_2d": 0.44503979208651917,
+        "temporal_precision": 0.8172006114109243,
+        "temporal_recall": 0.8842869198312237,
+        "area_precision_2d": 0.5482105774772319,
+        "area_recall_2d": 0.7028031600320633,
+        "temporal_ap": 0.9127499903318097,
+        "mask_ap_2d": 0.6337144938213408,
+        "counts": {
+          "temporal": [
+            26197,
+            5860,
+            3428
+          ],
+          "2d": [
+            649686,
+            535417,
+            274735
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_18": {
+      "qwen": {
+        "temporal_iou": 0.6471940099340203,
+        "iou_2d": 0.3790330661322645,
+        "temporal_precision": 0.9023566703417861,
+        "temporal_recall": 0.6959317620173784,
+        "area_precision_2d": 0.8272994687074798,
+        "area_recall_2d": 0.4116005309921595,
+        "temporal_ap": 0.8581099670445832,
+        "mask_ap_2d": 0.4641723702247474,
+        "counts": {
+          "temporal": [
+            26190,
+            2834,
+            11443
+          ],
+          "2d": [
+            529585,
+            110552,
+            757063
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.7107707061020542,
+        "iou_2d": 0.418969903205079,
+        "temporal_precision": 0.9339147158299622,
+        "temporal_recall": 0.7484122977174289,
+        "area_precision_2d": 0.614209950558681,
+        "area_recall_2d": 0.5686022906031797,
+        "temporal_ap": 0.9417623821519385,
+        "mask_ap_2d": 0.6492459249268323,
+        "counts": {
+          "temporal": [
+            28165,
+            1993,
+            9468
+          ],
+          "2d": [
+            731591,
+            459518,
+            555057
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_19": {
+      "qwen": {
+        "temporal_iou": 0.7290744565751942,
+        "iou_2d": 0.4403825202759956,
+        "temporal_precision": 0.9239926454548287,
+        "temporal_recall": 0.7755892123780376,
+        "area_precision_2d": 0.8547442800943907,
+        "area_recall_2d": 0.4760062837278109,
+        "temporal_ap": 0.8991445044297396,
+        "mask_ap_2d": 0.5164208839928276,
+        "counts": {
+          "temporal": [
+            29650,
+            2439,
+            8579
+          ],
+          "2d": [
+            582080,
+            98919,
+            640761
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.8286382176848031,
+        "iou_2d": 0.51167992881146,
+        "temporal_precision": 0.9038846824343663,
+        "temporal_recall": 0.9087080488634283,
+        "area_precision_2d": 0.6178466597328758,
+        "area_recall_2d": 0.7486026392638128,
+        "temporal_ap": 0.969074111363916,
+        "mask_ap_2d": 0.7262044396762668,
+        "counts": {
+          "temporal": [
+            34739,
+            3694,
+            3490
+          ],
+          "2d": [
+            915422,
+            566211,
+            307419
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_20": {
+      "qwen": {
+        "temporal_iou": 0.7115441490585258,
+        "iou_2d": 0.5780707707970199,
+        "temporal_precision": 0.7753150959610426,
+        "temporal_recall": 0.8963818512998841,
+        "area_precision_2d": 0.8133890895542095,
+        "area_recall_2d": 0.6664586958003716,
+        "temporal_ap": 0.8650290309851344,
+        "mask_ap_2d": 0.6065246571746484,
+        "counts": {
+          "temporal": [
+            21653,
+            6275,
+            2503
+          ],
+          "2d": [
+            449709,
+            103174,
+            225065
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.7686886674497025,
+        "iou_2d": 0.5076145863575794,
+        "temporal_precision": 0.9006881243063263,
+        "temporal_recall": 0.8398741513495612,
+        "area_precision_2d": 0.577023443458246,
+        "area_recall_2d": 0.8084291925889261,
+        "temporal_ap": 0.9422854894243683,
+        "mask_ap_2d": 0.7063337473596446,
+        "counts": {
+          "temporal": [
+            20288,
+            2237,
+            3868
+          ],
+          "2d": [
+            545507,
+            399874,
+            129267
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_21": {
+      "qwen": {
+        "temporal_iou": 0.6841351509043654,
+        "iou_2d": 0.40948826734152594,
+        "temporal_precision": 0.8999755782716394,
+        "temporal_recall": 0.7404345704526536,
+        "area_precision_2d": 0.8346587702514832,
+        "area_recall_2d": 0.4456371658734074,
+        "temporal_ap": 0.8692627037229672,
+        "mask_ap_2d": 0.468766967624506,
+        "counts": {
+          "temporal": [
+            25796,
+            2867,
+            9043
+          ],
+          "2d": [
+            485097,
+            96095,
+            603450
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.7608967037637122,
+        "iou_2d": 0.4709255817960299,
+        "temporal_precision": 0.910671710589058,
+        "temporal_recall": 0.8222681477654353,
+        "area_precision_2d": 0.614902020483935,
+        "area_recall_2d": 0.6679123639126285,
+        "temporal_ap": 0.9332549339399759,
+        "mask_ap_2d": 0.6659121478601032,
+        "counts": {
+          "temporal": [
+            28647,
+            2810,
+            6192
+          ],
+          "2d": [
+            727054,
+            455336,
+            361493
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_22": {
+      "qwen": {
+        "temporal_iou": 0.7149148999701403,
+        "iou_2d": 0.40086968085486685,
+        "temporal_precision": 0.9133129887469006,
+        "temporal_recall": 0.766957635941379,
+        "area_precision_2d": 0.8318302056705917,
+        "area_recall_2d": 0.43622254674124206,
+        "temporal_ap": 0.9012470531511239,
+        "mask_ap_2d": 0.49167302348665026,
+        "counts": {
+          "temporal": [
+            28731,
+            2727,
+            8730
+          ],
+          "2d": [
+            560686,
+            113353,
+            724635
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.8214052369703976,
+        "iou_2d": 0.4776936313807571,
+        "temporal_precision": 0.9333809251856082,
+        "temporal_recall": 0.8725607965617576,
+        "area_precision_2d": 0.5943065396321775,
+        "area_recall_2d": 0.7088384924855348,
+        "temporal_ap": 0.9697168738177228,
+        "mask_ap_2d": 0.6932770006545621,
+        "counts": {
+          "temporal": [
+            32687,
+            2333,
+            4774
+          ],
+          "2d": [
+            911085,
+            621937,
+            374236
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_23": {
+      "qwen": {
+        "temporal_iou": 0.5787364396434577,
+        "iou_2d": 0.3300536702955426,
+        "temporal_precision": 0.9321141076529288,
+        "temporal_recall": 0.604203236588357,
+        "area_precision_2d": 0.854377776646592,
+        "area_recall_2d": 0.34972765150889185,
+        "temporal_ap": 0.892140083954631,
+        "mask_ap_2d": 0.4384327859301972,
+        "counts": {
+          "temporal": [
+            25127,
+            1830,
+            16460
+          ],
+          "2d": [
+            486745,
+            82962,
+            905038
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.7319606455589289,
+        "iou_2d": 0.38831514100444525,
+        "temporal_precision": 0.9352486510135628,
+        "temporal_recall": 0.7710342174237141,
+        "area_precision_2d": 0.5354560445697092,
+        "area_recall_2d": 0.5855963178167861,
+        "temporal_ap": 0.9579528633666674,
+        "mask_ap_2d": 0.6026246048952315,
+        "counts": {
+          "temporal": [
+            32065,
+            2220,
+            9522
+          ],
+          "2d": [
+            815023,
+            707087,
+            576760
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_24": {
+      "qwen": {
+        "temporal_iou": 0.5605875152998776,
+        "iou_2d": 0.16085161201274428,
+        "temporal_precision": 0.9358256394732859,
+        "temporal_recall": 0.5829993871104615,
+        "area_precision_2d": 0.8360211786133468,
+        "area_recall_2d": 0.16609176540544693,
+        "temporal_ap": 0.8936615893208083,
+        "mask_ap_2d": 0.45580199170723945,
+        "counts": {
+          "temporal": [
+            24732,
+            1696,
+            17690
+          ],
+          "2d": [
+            419538,
+            82289,
+            2106403
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.8649905858899103,
+        "iou_2d": 0.3865248468312718,
+        "temporal_precision": 0.9348143537691811,
+        "temporal_recall": 0.9205129413983311,
+        "area_precision_2d": 0.6807063728355374,
+        "area_recall_2d": 0.472122666364733,
+        "temporal_ap": 0.9721189024957013,
+        "mask_ap_2d": 0.6488412144186548,
+        "counts": {
+          "temporal": [
+            39050,
+            2723,
+            3372
+          ],
+          "2d": [
+            1192554,
+            559382,
+            1333387
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_25": {
+      "qwen": {
+        "temporal_iou": 0.42954381536242336,
+        "iou_2d": 0.12629203561271124,
+        "temporal_precision": 0.9901802878370655,
+        "temporal_recall": 0.4313814255641821,
+        "area_precision_2d": 0.8177671486179439,
+        "area_recall_2d": 0.12994921821421815,
+        "temporal_ap": 0.9865110566161411,
+        "mask_ap_2d": 0.39534229864535353,
+        "counts": {
+          "temporal": [
+            19058,
+            189,
+            25121
+          ],
+          "2d": [
+            239699,
+            53415,
+            1604860
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.8925004498830305,
+        "iou_2d": 0.2915894591489459,
+        "temporal_precision": 0.9930670270811434,
+        "temporal_recall": 0.8980963806333325,
+        "area_precision_2d": 0.4847572656121723,
+        "area_recall_2d": 0.42254869592135574,
+        "temporal_ap": 0.996946015180987,
+        "mask_ap_2d": 0.5227882627155875,
+        "counts": {
+          "temporal": [
+            39677,
+            277,
+            4502
+          ],
+          "2d": [
+            779416,
+            828432,
+            1065143
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_26": {
+      "qwen": {
+        "temporal_iou": 0.4650263620386643,
+        "iou_2d": 0.18980260305134722,
+        "temporal_precision": 0.9568851207457709,
+        "temporal_recall": 0.47497855874902767,
+        "area_precision_2d": 0.8004058537463639,
+        "area_recall_2d": 0.19923233922726008,
+        "temporal_ap": 0.9606149654743635,
+        "mask_ap_2d": 0.4176099012158515,
+        "counts": {
+          "temporal": [
+            23814,
+            1073,
+            26323
+          ],
+          "2d": [
+            426774,
+            106423,
+            1715318
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.9226611066064326,
+        "iou_2d": 0.3689792724387503,
+        "temporal_precision": 0.9664125533334681,
+        "temporal_recall": 0.9532281548556953,
+        "area_precision_2d": 0.5262454657585289,
+        "area_recall_2d": 0.5525089491954593,
+        "temporal_ap": 0.9908272068412316,
+        "mask_ap_2d": 0.6010520692168202,
+        "counts": {
+          "temporal": [
+            47792,
+            1661,
+            2345
+          ],
+          "2d": [
+            1183525,
+            1065473,
+            958567
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_27": {
+      "qwen": {
+        "temporal_iou": 0.3710214655810511,
+        "iou_2d": 0.13041639002016253,
+        "temporal_precision": 0.9646843725943033,
+        "temporal_recall": 0.3761302667617154,
+        "area_precision_2d": 0.8429430680941412,
+        "area_recall_2d": 0.13366431904653253,
+        "temporal_ap": 0.9500582515959507,
+        "mask_ap_2d": 0.38533065214871387,
+        "counts": {
+          "temporal": [
+            20050,
+            734,
+            33256
+          ],
+          "2d": [
+            299351,
+            55775,
+            1940222
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.8812341894861236,
+        "iou_2d": 0.3548738942305226,
+        "temporal_precision": 0.9824810606060606,
+        "temporal_recall": 0.8953025925786966,
+        "area_precision_2d": 0.5225281818852253,
+        "area_recall_2d": 0.5251742184782545,
+        "temporal_ap": 0.9909506854346362,
+        "mask_ap_2d": 0.5466199297471241,
+        "counts": {
+          "temporal": [
+            47725,
+            851,
+            5581
+          ],
+          "2d": [
+            1176166,
+            1074748,
+            1063407
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_28": {
+      "qwen": {
+        "temporal_iou": 0.40240822320117475,
+        "iou_2d": 0.16721375743398345,
+        "temporal_precision": 0.9810032933988831,
+        "temporal_recall": 0.4055686011405569,
+        "area_precision_2d": 0.7782869554545433,
+        "area_recall_2d": 0.17557733224885191,
+        "temporal_ap": 0.9597802865567151,
+        "mask_ap_2d": 0.3844921878927475,
+        "counts": {
+          "temporal": [
+            20553,
+            398,
+            30124
+          ],
+          "2d": [
+            336104,
+            95747,
+            1578175
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.8662028829106606,
+        "iou_2d": 0.3350053116794214,
+        "temporal_precision": 0.9736807902261503,
+        "temporal_recall": 0.8869704205063441,
+        "area_precision_2d": 0.49617797227555765,
+        "area_recall_2d": 0.5077117807801266,
+        "temporal_ap": 0.9874855858488057,
+        "mask_ap_2d": 0.5539460115052315,
+        "counts": {
+          "temporal": [
+            44949,
+            1215,
+            5728
+          ],
+          "2d": [
+            971902,
+            986875,
+            942377
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_29": {
+      "qwen": {
+        "temporal_iou": 0.4542400445081634,
+        "iou_2d": 0.16525571485050597,
+        "temporal_precision": 0.9288527172486217,
+        "temporal_recall": 0.47061431706830426,
+        "area_precision_2d": 0.7109010683583804,
+        "area_recall_2d": 0.1771616503164092,
+        "temporal_ap": 0.8894272960314124,
+        "mask_ap_2d": 0.3384071960500467,
+        "counts": {
+          "temporal": [
+            21228,
+            1626,
+            23879
+          ],
+          "2d": [
+            283400,
+            115249,
+            1316269
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.8026993121944889,
+        "iou_2d": 0.3332528168914023,
+        "temporal_precision": 0.9705274719527184,
+        "temporal_recall": 0.8227547830713636,
+        "area_precision_2d": 0.5349500743770256,
+        "area_recall_2d": 0.4691770610044953,
+        "temporal_ap": 0.9797260559362508,
+        "mask_ap_2d": 0.5572067845342212,
+        "counts": {
+          "temporal": [
+            37112,
+            1127,
+            7995
+          ],
+          "2d": [
+            750528,
+            652459,
+            849141
+          ]
+        }
+      }
+    },
+    "Recording_1_Segment_30": {
+      "qwen": {
+        "temporal_iou": 0.35622344810094475,
+        "iou_2d": 0.13760838932419756,
+        "temporal_precision": 0.9557672677781558,
+        "temporal_recall": 0.3621945715943524,
+        "area_precision_2d": 0.7789620790668924,
+        "area_recall_2d": 0.14320001976235766,
+        "temporal_ap": 0.8952050462468444,
+        "mask_ap_2d": 0.31462825817851303,
+        "counts": {
+          "temporal": [
+            11236,
+            520,
+            19786
+          ],
+          "2d": [
+            144922,
+            41123,
+            867103
+          ]
+        }
+      },
+      "songmae": {
+        "temporal_iou": 0.5870085143021142,
+        "iou_2d": 0.22294270488472023,
+        "temporal_precision": 0.9820218724993331,
+        "temporal_recall": 0.5933853394365289,
+        "area_precision_2d": 0.49245428610334524,
+        "area_recall_2d": 0.2894513475457622,
+        "temporal_ap": 0.974399666424985,
+        "mask_ap_2d": 0.46297247531785574,
+        "counts": {
+          "temporal": [
+            18408,
+            337,
+            12614
+          ],
+          "2d": [
+            292932,
+            301909,
+            719093
+          ]
+        }
+      }
+    }
+  }
+}
