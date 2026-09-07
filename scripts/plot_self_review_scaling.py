@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Plot matched Powdermill scores against self-reviewed training duration.")
+    parser = argparse.ArgumentParser(description="Plot matched Powdermill mask AP against self-reviewed training duration.")
     parser.add_argument("--result", nargs=2, action="append", metavar=("SECONDS", "JSON"), required=True)
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
@@ -41,20 +41,16 @@ def main():
         "ytick.labelsize": 10, "legend.fontsize": 9.5, "pdf.fonttype": 42, "svg.fonttype": "none"})
     fig, axis = plt.subplots(figsize=(3.5, 3.5), layout="constrained")
     seconds = [row["training_seconds"] for row in rows]
-    for metric, label, color, marker in (("mask_ap_2d", "mask AP", "C0", "o"), ("iou_2d", "2D IoU", "C1", "s")):
-        values = [row[metric] for row in rows]
-        axis.plot(seconds, values, marker=marker, color=color, linewidth=1.6, markersize=5,
-            label=f"SongMAE {label}")
-        axis.axhline(reference["models"]["qwen"][metric], color=color, linestyle="--", linewidth=1.3,
-            label=f"Qwen {label}")
+    values = [row["mask_ap_2d"] for row in rows]
+    axis.plot(seconds, values, marker="o", color="C0", linewidth=1.6, markersize=5, label="SongMAE-Large")
+    axis.axhline(reference["models"]["qwen"]["mask_ap_2d"], color="C0", linestyle="--", linewidth=1.3,
+        label="Qwen self-review")
     axis.set_xscale("log")
     axis.set_xticks(seconds, labels=[f"{value:,}" for value in seconds])
     axis.set_yticks([0, .2, .4, .6, .8, 1])
-    axis.set(ylim=(0, 1), ylabel="Powdermill score", xlabel="Xeno-Canto training audio (s)")
+    axis.set(ylim=(0, 1), ylabel="Powdermill mask AP", xlabel="Xeno-Canto training audio (s)")
     axis.margins(x=.07)
-    handles, labels = axis.get_legend_handles_labels()
-    order = (0, 2, 1, 3)
-    axis.legend([handles[i] for i in order], [labels[i] for i in order], loc="upper left", frameon=False)
+    axis.legend(loc="upper left", frameon=False)
     for suffix in (".png", ".pdf", ".svg"):
         fig.savefig(args.out.with_suffix(suffix), dpi=600)
     plt.close(fig)

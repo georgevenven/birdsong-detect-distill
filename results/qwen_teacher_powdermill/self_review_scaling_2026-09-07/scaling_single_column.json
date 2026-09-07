@@ -18,24 +18,6 @@
   },
   "students": [
     {
-      "training_seconds": 10,
-      "training_windows": 2,
-      "training_recordings": 2,
-      "epochs": 3,
-      "threshold": 0.15,
-      "result": "results/qwen_teacher_powdermill/matched_self_review_10s_2026-09-07/comparison.json",
-      "checkpoint": "artifacts/self_review_scaling_2026-09-07/self_review-s10.pt",
-      "checkpoint_sha256": "6da13237b5c95bf9f6b2ff0aededf75562ca0140d3413aed46a96d40b64e8bc8",
-      "temporal_iou": 0.6241206288689881,
-      "iou_2d": 0.18278329590049405,
-      "temporal_precision": 0.6241206288689881,
-      "temporal_recall": 0.9666666666666667,
-      "area_precision_2d": 0.186990161046984,
-      "area_recall_2d": 0.8815307757283308,
-      "temporal_ap": 0.7163172322351505,
-      "mask_ap_2d": 0.2192210296033879
-    },
-    {
       "training_seconds": 100,
       "training_windows": 21,
       "training_recordings": 18,

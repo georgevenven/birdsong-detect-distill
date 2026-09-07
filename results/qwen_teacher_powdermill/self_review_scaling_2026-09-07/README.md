@@ -13,15 +13,14 @@ Frozen SongMAE-Large students trained on nested subsets of self-reviewed Xeno-Ca
 
 Single-column square figure: [PDF](scaling_single_column.pdf) · [SVG](scaling_single_column.svg) · [PNG](scaling_single_column.png).
 This is a 3.5 × 3.5-inch Matplotlib figure with 10–11 pt tick/axis fonts, embedded PDF fonts, editable SVG text,
-and a 600-dpi PNG. Blue circles show student mask AP; orange squares show student 2D IoU.
-Dashed lines are the corresponding Qwen self-review scores. The student is always SongMAE-Large.
+and a 600-dpi PNG. It shows only mask AP at 100, 1,000, and 10,000 training seconds.
+Blue circles show SongMAE-Large; the dashed line shows Qwen self-review mask AP.
 Generated figures and machine-local `song-detect-paper/` work are ignored by Git and transferred separately.
 
-Reproduce from the four matched comparisons (no GPU needed):
+Reproduce from the three displayed matched comparisons (no GPU needed):
 
 ```bash
 python scripts/plot_self_review_scaling.py \
-  --result 10 results/qwen_teacher_powdermill/matched_self_review_10s_2026-09-07/comparison.json \
   --result 100 results/qwen_teacher_powdermill/matched_self_review_100s_2026-09-07/comparison.json \
   --result 1000 results/qwen_teacher_powdermill/matched_self_review_1000s_2026-09-07/comparison.json \
   --result 10000 results/qwen_teacher_powdermill/matched_self_review_10000s_2026-09-07/comparison.json \
