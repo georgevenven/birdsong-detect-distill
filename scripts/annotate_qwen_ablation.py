@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import argparse
+import hashlib
 import json
+import os
 import random
 import re
 import threading
@@ -87,6 +89,14 @@ def main():
         "model": "Qwen3.8-27B-Q8_0", "recordings": selected, "recording_count": len(selected),
         "tile_seconds": 5, "window_count": len(all_tiles), "seed": args.seed, "reasoning_budget": args.reasoning_budget,
         "max_tokens": args.max_tokens, "excluded_xcaj_recordings": len(excluded), "labels": LABELS, "system_prompt": SYSTEM}
+    checkpoint_config = {"version": 1, "model": metadata["model"], "spec_dir": str(args.spec_dir),
+        "params": params, "seed": args.seed, "reasoning_budget": args.reasoning_budget,
+        "max_tokens": args.max_tokens, "prompts": [SYSTEM, SELF_REVIEW, SHIFT_REVIEW, REVIEW]}
+    config_key = hashlib.sha256(json.dumps(checkpoint_config, sort_keys=True).encode()).hexdigest()
+    checkpoints = args.out_dir / "stage_checkpoints" / config_key
+    checkpoints.mkdir(parents=True, exist_ok=True)
+    print(f"Resuming: {len(done)}/{len(all_tiles)} windows complete; {len(tiles)} pending. "
+        f"Stage checkpoints: {checkpoints}", flush=True)
 
     def finish(events, start, end, owner_start, owner_end):
         canonical = canonical_events(events, start, end, start, end, owner_start, owner_end)
@@ -106,24 +116,44 @@ def main():
 
     def annotate(index, tile):
         recording, _, _, _, owner_start, owner_end = tile
+        tile_key = hashlib.sha256(json.dumps(tile).encode()).hexdigest()
+        checkpoint = checkpoints / f"{tile_key}.json"
+        state = json.loads(checkpoint.read_text()) if checkpoint.exists() else {
+            "tile": list(tile), "seed": args.seed + index * 31, "shift": -1 if index % 2 == 0 else 1, "stages": {}}
+
+        def stage(name, system, instruction, pictures, seed, **kwargs):
+            if name in state["stages"]:
+                print(f"Reusing {recording}:{owner_start}-{owner_end} {name}", flush=True)
+                return state["stages"][name]
+            result = call(args, system, instruction, pictures, seed, **kwargs)
+            state["stages"][name] = result
+            temporary = checkpoint.with_suffix(".tmp")
+            with temporary.open("w") as file:
+                json.dump(state, file, separators=(",", ":"))
+                file.flush()
+                os.fsync(file.fileno())
+            temporary.replace(checkpoint)
+            print(f"Saved {recording}:{owner_start}-{owner_end} {name}", flush=True)
+            return result
+
         view_start = owner_start - (5 * second - (owner_end - owner_start)) // 2
         spec, start, end = context(args.spec_dir, tile, view_start, view_start + 5 * second)
         clean, owner = image(spec), ownership_x(owner_start, owner_end, start, end)
         instruction = f"Ownership is x={owner[0]}..{owner[1]} on the 0-1000 axis. Return only events whose midpoint lies inside it."
-        seed = args.seed + index * 31
+        seed = state["seed"]
 
-        direct = call(args, SYSTEM, instruction, [clean], seed, reasoning_budget=0)
-        initial = call(args, SYSTEM, instruction, [clean], seed)
-        reviewed = call(args, SELF_REVIEW, instruction + " Picture 2 shows your current boxes in red. Current event JSON: "
+        direct = stage("direct", SYSTEM, instruction, [clean], seed, reasoning_budget=0)
+        initial = stage("primary", SYSTEM, instruction, [clean], seed)
+        reviewed = stage("self_review", SELF_REVIEW, instruction + " Picture 2 shows your current boxes in red. Current event JSON: "
             + json.dumps(initial["events"], separators=(",", ":")),
             [clean, preview_image(spec, [event["bbox_2d"] for event in initial["events"]])], seed + 1)
         primary, primary_final = finish(reviewed["events"], start, end, owner_start, owner_end)
 
-        shift = -1 if index % 2 == 0 else 1
+        shift = state["shift"]
         shifted_spec, shifted_start, shifted_end = context(args.spec_dir, tile, start + shift * second, end + shift * second)
         shifted_primary = project(primary, start, end, shifted_start, shifted_end)
         shifted_owner = ownership_x(owner_start, owner_end, shifted_start, shifted_end)
-        independent = call(args, SHIFT_REVIEW,
+        independent = stage("independent_shifted_review", SHIFT_REVIEW,
             f"Ownership is x={max(0, shifted_owner[0])}..{min(1000, shifted_owner[1])}. Picture 2 shows the reviewed primary "
             "boxes in red. Their exact coordinates in this shifted view are: " + json.dumps(shifted_primary, separators=(",", ":")),
             [image(shifted_spec), preview_image(shifted_spec, [event["bbox_2d"] for event in shifted_primary])], seed + 2)
@@ -135,7 +165,7 @@ def main():
         adjudicated = agreed is None
         if adjudicated:
             proposals = json.dumps({"primary": primary, "shifted_reviewer": reviewer}, separators=(",", ":"))
-            final = call(args, REVIEW, instruction + " Pictures 2 and 3 show the primary and shifted reviewer proposals. "
+            final = stage("adjudicator", REVIEW, instruction + " Pictures 2 and 3 show the primary and shifted reviewer proposals. "
                 "Use these exact proposal coordinates; do not expect coordinate text inside the images: " + proposals,
                 [clean, preview_image(spec, [event["bbox_2d"] for event in primary]),
                     preview_image(spec, [event["bbox_2d"] for event in reviewer])], seed + 3)

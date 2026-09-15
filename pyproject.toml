@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "birdsong-detect-distill"
 version = "0.1.0"
 description = "Distill Qwen spectrogram annotations into frozen SongMAE detectors."
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 dependencies = [
   "librosa>=0.10",
   "matplotlib>=3.8",

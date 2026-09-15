@@ -1,0 +1,10 @@
+# Keep this environment separate from the SongMAE / YOLO training environment.
+sound-event-detection @ git+https://github.com/earthspecies/sound-event-detection.git@617c6408fdd1b56c3873ef2d17006ffbaee61783
+transformers==4.57.6
+avex==1.3.0
+# Compatible with the inherited datasets 3.6 loader; no global environment changes.
+fsspec[http]==2025.3.0
+gcsfs==2025.3.0
+s3fs==2025.3.0
+ultralytics==8.4.138
+# Install torchaudio from the same PyTorch index/version as torch (see docs/baselines.md).

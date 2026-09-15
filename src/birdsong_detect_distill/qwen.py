@@ -40,6 +40,8 @@ def call(args, system, instruction, pictures, seed, reasoning_budget=None):
         "reasoning_budget_tokens": args.reasoning_budget if reasoning_budget is None else reasoning_budget,
         "chat_template_kwargs": {"add_vision_id": True}, "seed": seed,
         "response_format": {"type": "json_schema", "json_schema": {"name": "spectrogram_events", "strict": True, "schema": schema()}}}
+    if payload["reasoning_budget_tokens"] == 0:
+        payload["reasoning_effort"] = "none"
     for attempt in range(3):
         try:
             response = requests.post(args.url, json=payload, timeout=args.timeout)

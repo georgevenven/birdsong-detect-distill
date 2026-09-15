@@ -8,7 +8,7 @@ import librosa
 import numpy as np
 import torch
 
-from birdsong_detect_distill.evaluation import WABAD_SITES, powdermill, wabad, xcsl
+from birdsong_detect_distill.evaluation import powdermill
 from birdsong_detect_distill.model import DenseHead, load_backbone
 
 
@@ -59,7 +59,7 @@ def load_heads(paths, backbone, device):
         saved = torch.load(path, map_location="cpu", weights_only=True)
         config = backbone.config
         head = DenseHead(config.enc_hidden_d, saved["hidden"], saved["height"], saved["width"],
-            config.patch_height, config.patch_width, saved["dropout"]).to(device)
+            config.patch_height, config.patch_width, saved["dropout"], saved.get("head_layers", 1)).to(device)
         head.load_state_dict(saved["head"])
         heads[path.stem] = head.eval()
     return heads
@@ -108,18 +108,15 @@ def main():
     parser.add_argument("--threshold", type=float)
     parser.add_argument("--out", type=Path, default=Path("results/reproduced"))
     args = parser.parse_args()
+    if args.dataset != "powdermill":
+        parser.error("Use evaluate_baselines.py for external evaluation: it enforces full coverage, overlap exclusions and development-only calibration.")
     checkpoints = args.checkpoint or [Path("artifacts/songmae-large-32x1-detector.pt")]
     saved = {path: torch.load(path, map_location="cpu", weights_only=True) for path in checkpoints}
     grouped = {}
     for path, checkpoint in saved.items():
         grouped.setdefault(checkpoint["backbone_id"], []).append(path)
-    if args.dataset == "wabad":
-        maximum = args.maximum or len(WABAD_SITES)
-        stride = max(1, len(WABAD_SITES) // maximum)
-        source = (row for site in WABAD_SITES[::stride][:maximum] for row in islice(wabad(args.root, [site]), 1))
-    else:
-        source = {"powdermill": powdermill, "xcsl": xcsl}[args.dataset](args.root)
-        source = islice(source, args.maximum) if args.maximum else source
+    source = powdermill(args.root)
+    source = islice(source, args.maximum) if args.maximum else source
     source = list(source)
     curves = {path.stem: [] for path in checkpoints}
     device = torch.device(args.device)

@@ -12,7 +12,7 @@ while true; do
     --tiles-from data/powdermill/qwen/recordings.jsonl \
     --xcaj-audio "$root/xcaj/Audio.zip" \
     --out-dir "$output" --recordings 77 \
-    --workers 32 --reasoning-budget 2048 --max-tokens 4096
+    --workers 16 --reasoning-budget 2048 --max-tokens 4096
   status=$?
   set -e
   if (( status == 0 )); then

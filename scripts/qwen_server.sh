@@ -11,7 +11,7 @@ exec llama-server \
   --n-gpu-layers 999 --device CUDA0,CUDA1 \
   --split-mode layer --tensor-split 1,1 \
   --flash-attn on --batch-size 2048 --ubatch-size 512 \
-  --parallel "${PARALLEL:-32}" --jinja \
+  --parallel "${PARALLEL:-16}" --jinja \
   --reasoning-effort high --reasoning-preserve \
   --host 0.0.0.0 --port "${PORT:-8080}" \
   --temp .6 --top-p .95 --top-k 20 --min-p 0

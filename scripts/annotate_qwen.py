@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 import argparse
+import hashlib
 import json
+import os
 import random
+import signal
 import threading
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from pathlib import Path
 
 from birdsong_detect_distill.qwen import (LABELS, REVIEW, SELF_REVIEW, SYSTEM, call, canonical_events, context, image, map_final,
@@ -60,7 +63,7 @@ def main():
     parser.add_argument("--out", type=Path, default=Path("data/annotations/xcl/qwen38_adaptive_review_5s_annotations.jsonl"))
     parser.add_argument("--progress", type=Path, default=Path("data/annotations/xcl/qwen38_adaptive_review_5s_progress.json"))
     parser.add_argument("--url", default="http://127.0.0.1:8080/v1/chat/completions")
-    parser.add_argument("--workers", type=int, default=32)
+    parser.add_argument("--workers", type=int, default=16)
     parser.add_argument("--reasoning-budget", type=int, default=1024)
     parser.add_argument("--max-tokens", type=int, default=2048)
     parser.add_argument("--timeout", type=float, default=600)
@@ -73,22 +76,37 @@ def main():
     second = round(bins_per_second)
     done = read_done(args.out)
     tiles = split_tiles(read_tiles(args.tiles_from.resolve()), 5 * second)
-    tiles = [x for x in tiles if (x[0], x[4], x[5]) not in done]
+    indexed = [(index, tile) for index, tile in enumerate(tiles)
+        if (tile[0], tile[4], tile[5]) not in done]
     if args.max_tiles:
-        tiles = random.Random(args.seed).sample(tiles, min(args.max_tiles, len(tiles)))
+        indexed = random.Random(args.seed).sample(indexed, min(args.max_tiles, len(indexed)))
+    tiles = [tile for _, tile in indexed]
     completed_at_start = len(done)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     lock = threading.Lock()
+    stopping = threading.Event()
+    for sig in (signal.SIGINT, signal.SIGTERM):
+        signal.signal(sig, lambda *_: stopping.set())
+    config = {"model": "Qwen3.8-27B-Q8_0", "spec_dir": str(args.spec_dir), "params": params,
+        "reasoning_budget": args.reasoning_budget, "max_tokens": args.max_tokens, "seed": args.seed,
+        "prompts": [SYSTEM, SELF_REVIEW, SHIFT_REVIEW, REVIEW]}
+    config_key = hashlib.sha256(json.dumps(config, sort_keys=True).encode()).hexdigest()
+    checkpoints = args.out.parent / (args.out.stem + "_stages") / config_key
+    checkpoints.mkdir(parents=True, exist_ok=True)
+    print(f"Resuming {completed_at_start} accepted windows; {len(tiles)} pending; "
+        f"workers={args.workers}; checkpoints={checkpoints}", flush=True)
 
     def progress(tile, stage):
         recording, shard, source_start, source_end, owner_start, owner_end = tile
         view_start = owner_start - (5 * second - (owner_end - owner_start)) // 2
         with lock:
-            args.progress.write_text(json.dumps({"recording": recording, "shard": str(args.spec_dir / "shards" / shard),
+            temporary = args.progress.with_suffix(".tmp")
+            temporary.write_text(json.dumps({"recording": recording, "shard": str(args.spec_dir / "shards" / shard),
                 "source_start": source_start, "source_end": source_end, "view_start": view_start,
                 "view_end": view_start + 5 * second, "ownership_start": owner_start, "ownership_end": owner_end,
                 "ownership_start_s": owner_start / bins_per_second, "ownership_end_s": owner_end / bins_per_second,
                 "stage": stage, "completed": len(done), "remaining": len(tiles) - len(done) + completed_at_start}))
+            temporary.replace(args.progress)
 
     def annotate(index, tile):
         recording, shard, source_start, source_end, owner_start, owner_end = tile
@@ -96,24 +114,42 @@ def main():
         spec, start, end = context(args.spec_dir, tile, view_start, view_start + 5 * second)
         clean, owner = image(spec), ownership_x(owner_start, owner_end, start, end)
         instruction = f"Ownership is x={owner[0]}..{owner[1]} on the 0-1000 axis. Return only events whose midpoint lies inside it."
+        tile_key = hashlib.sha256(json.dumps(tile).encode()).hexdigest()
+        checkpoint = checkpoints / f"{tile_key}.json"
+        state = json.loads(checkpoint.read_text()) if checkpoint.exists() else {
+            "tile": list(tile), "seed": args.seed + index * 31, "shift": -1 if index % 2 == 0 else 1,
+            "stages": {}}
+
+        def stage(name, system, prompt, pictures, offset):
+            if name not in state["stages"]:
+                state["stages"][name] = call(args, system, prompt, pictures, state["seed"] + offset)
+                temporary = checkpoint.with_suffix(".tmp")
+                with temporary.open("w") as file:
+                    json.dump(state, file, separators=(",", ":"))
+                    file.flush()
+                    os.fsync(file.fileno())
+                temporary.replace(checkpoint)
+                print(f"Saved {recording}:{owner_start}-{owner_end} {name}", flush=True)
+            return state["stages"][name]
+
         progress(tile, "primary proposal")
-        initial = call(args, SYSTEM, instruction, [clean], args.seed + index * 31)
+        initial = stage("primary", SYSTEM, instruction, [clean], 0)
         progress(tile, "primary self-review")
-        reviewed = call(args, SELF_REVIEW, instruction + " Picture 2 shows your current boxes in red. Current event JSON: "
+        reviewed = stage("self_review", SELF_REVIEW, instruction + " Picture 2 shows your current boxes in red. Current event JSON: "
             + json.dumps(initial["events"], separators=(",", ":")),
-            [clean, preview_image(spec, [x["bbox_2d"] for x in initial["events"]])], args.seed + index * 31 + 1)
+            [clean, preview_image(spec, [x["bbox_2d"] for x in initial["events"]])], 1)
         primary = canonical_events(reviewed["events"], start, end, start, end, owner_start, owner_end)
 
-        shift = -1 if index % 2 == 0 else 1
+        shift = state["shift"]
         shifted_spec, shifted_start, shifted_end = context(args.spec_dir, tile, start + shift * second, end + shift * second)
         shifted_primary = project(primary, start, end, shifted_start, shifted_end)
         shifted_owner = [max(0, x) if i == 0 else min(1000, x)
             for i, x in enumerate(ownership_x(owner_start, owner_end, shifted_start, shifted_end))]
         progress(tile, f"independent reviewer {shift:+d}s")
-        independent = call(args, SHIFT_REVIEW,
+        independent = stage("independent_shifted_review", SHIFT_REVIEW,
             f"Ownership is x={shifted_owner[0]}..{shifted_owner[1]}. Picture 2 shows the reviewed primary boxes in red. "
             "Their exact coordinates in this shifted view are: " + json.dumps(shifted_primary, separators=(",", ":")),
-            [image(shifted_spec), preview_image(shifted_spec, [x["bbox_2d"] for x in shifted_primary])], args.seed + index * 31 + 2)
+            [image(shifted_spec), preview_image(shifted_spec, [x["bbox_2d"] for x in shifted_primary])], 2)
         reviewer = canonical_events(independent["events"], shifted_start, shifted_end, start, end, owner_start, owner_end)
         agreed = reconcile(primary, reviewer)
         passes = [{"stage": "Primary proposal", "shift_seconds": 0, **initial,
@@ -124,10 +160,10 @@ def main():
         if agreed is None:
             progress(tile, "conditional adjudicator")
             proposals = json.dumps({"primary": primary, "shifted_reviewer": reviewer}, separators=(",", ":"))
-            final = call(args, REVIEW, instruction + " Pictures 2 and 3 show the primary and shifted reviewer proposals. "
+            final = stage("adjudicator", REVIEW, instruction + " Pictures 2 and 3 show the primary and shifted reviewer proposals. "
                 "Use these exact proposal coordinates; do not expect coordinate text inside the images: " + proposals,
                 [clean, preview_image(spec, [x["bbox_2d"] for x in primary]), preview_image(spec, [x["bbox_2d"] for x in reviewer])],
-                args.seed + index * 31 + 3)
+                3)
             canonical = canonical_events(final["events"], start, end, start, end, owner_start, owner_end)
             fallback = not canonical and primary and reviewer
             if fallback:
@@ -145,7 +181,7 @@ def main():
                 "ownership_end_timebin": owner_end, "onset_ms": round(start * ms_per_bin, 3), "offset_ms": round(end * ms_per_bin, 3),
                 "ownership_onset_ms": round(owner_start * ms_per_bin, 3), "ownership_offset_ms": round(owner_end * ms_per_bin, 3)},
             "events": events, "window_quality": quality, "summary": summary, "adjudicated": adjudicated,
-            "high_recall_fallback": bool(adjudicated and fallback), "passes": passes}
+            "high_recall_fallback": bool(adjudicated and fallback), "passes": passes, "config_sha256": config_key}
 
     metadata = {"type": "metadata", "schema_version": 2, "workflow": "adaptive_shifted_review", "model": "Qwen3.8-27B-Q8_0",
         "labels": LABELS, "reasoning_effort": "high", "reasoning_budget": args.reasoning_budget, "max_tokens": args.max_tokens,
@@ -157,20 +193,49 @@ def main():
             for row in (json.loads(line) for line in args.out.open())):
         with args.out.open("a") as file:
             file.write(json.dumps(metadata) + "\n")
+    with args.out.open("a") as file:
+        file.write(json.dumps({"type": "run_metadata", "config_sha256": config_key, "config": config,
+            "workers": args.workers, "tiles_from": str(args.tiles_from),
+            "tiles_sha256": hashlib.sha256(args.tiles_from.read_bytes()).hexdigest()}) + "\n")
+    attempts = 0
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
-        futures = {pool.submit(annotate, index, tile): tile for index, tile in enumerate(tiles)}
-        for index, future in enumerate(as_completed(futures), 1):
-            tile = futures[future]
-            try:
-                row = future.result()
-            except Exception as error:
-                row = {"type": "annotation", "workflow": "adaptive_shifted_review", "status": "error", "recording": tile[0], "error": str(error)}
-            with lock:
-                with args.out.open("a") as file:
-                    file.write(json.dumps(row, separators=(",", ":")) + "\n")
-                if row["status"] == "ok":
-                    done.add((tile[0], tile[4], tile[5]))
-            print(f"{index}/{len(tiles)} {tile[0]}: {row['status']}", flush=True)
+        pending, iterator = {}, iter(indexed)
+        def submit():
+            if not stopping.is_set() and (item := next(iterator, None)) is not None:
+                index, tile = item
+                pending[pool.submit(annotate, index, tile)] = tile
+        for _ in range(args.workers):
+            submit()
+        while pending:
+            finished, _ = wait(pending, timeout=1, return_when=FIRST_COMPLETED)
+            if not finished:
+                continue
+            for future in finished:
+                tile = pending.pop(future)
+                attempts += 1
+                try:
+                    row = future.result()
+                except Exception as error:
+                    row = {"type": "annotation", "workflow": "adaptive_shifted_review", "status": "error",
+                        "recording": tile[0], "owner_start": tile[4], "owner_end": tile[5], "error": str(error)}
+                with lock:
+                    with args.out.open("a") as file:
+                        file.write(json.dumps(row, separators=(",", ":")) + "\n")
+                        file.flush()
+                        os.fsync(file.fileno())
+                    accepted = row["status"] == "ok" and not (row.get("adjudicated") and not row.get("events")
+                        and any(stage.get("events") for stage in row.get("passes", [])[:-1]))
+                    if accepted:
+                        done.add((tile[0], tile[4], tile[5]))
+                print(f"{attempts}/{len(tiles)} {tile[0]}: {row['status']}"
+                    + (f" ({row['error']})" if row['status'] == 'error' else ''), flush=True)
+                progress(tile, "saved" if not stopping.is_set() else "draining")
+                submit()
+    accepted = read_done(args.out)
+    remaining = sum((tile[0], tile[4], tile[5]) not in accepted for tile in tiles)
+    print(json.dumps({"completed": len(accepted), "remaining": remaining, "stopped": stopping.is_set()}), flush=True)
+    if stopping.is_set() or remaining:
+        raise SystemExit(130 if stopping.is_set() else 2)
 
 
 if __name__ == "__main__":

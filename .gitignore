@@ -1,6 +1,7 @@
 __pycache__/
 *.py[cod]
 .venv/
+.venv-birdcode/
 .cache/
 *.egg-info/
 data/xcl/shards/
@@ -24,7 +25,40 @@ song-detect-paper/
 # Transfer experiment inputs and weights directly, not through Git.
 /artifacts/
 /data/powdermill/
+/data/hawaii/
 /data/xcl/shards
 /data/annotations/powdermill/
 /data/annotations/xcl/ablation_*/
 /data/annotations/xcl/self_review_scaling_*/
+
+# Keep large, regenerable per-recording audits local; commit paper tables/summaries.
+/results/competitors_external_2026-09-08/parts/
+/results/competitors_external_2026-09-08/birdbox_*.json
+/results/competitors_external_2026-09-08/qwen_yolo_*.json
+/results/competitors_external_2026-09-08/birdcode_*.json
+
+# Live annotation runs and private/runtime material are transferred separately.
+/data/annotations/xcl/*/
+/annotation-gallery/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+/docs/papers/
+
+# Keep compact Markdown/CSV summaries; leave generated caches and audits local.
+/results/**/*.json
+/results/**/*.jsonl
+/results/**/*.npz
+/results/**/*.npy
+/results/**/*.pt
+/results/**/*.pth
+/results/**/*.log
+/results/**/*.lock
+/results/**/*.tmp
+/results/**/*.pid
+/results/**/backfill/
+/results/**/scratch/
+/results/**/attempts/
+/results/paper_15000train_2026-09-15

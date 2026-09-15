@@ -51,7 +51,9 @@ def split_rows(rows, fraction, seed):
 
 
 class PixelWindows(Dataset):
-    def __init__(self, rows, shard_dir, config):
+    def __init__(self, rows, shard_dir, config, ignore_uncertain=False, confidence_targets=False):
+        if ignore_uncertain and confidence_targets:
+            raise ValueError("choose either ignored uncertainty or confidence targets")
         self.shard_dir, self.config, self.windows = Path(shard_dir), config, []
         width, mels = config.num_timebins, config.mels
         for row in rows:
@@ -59,10 +61,19 @@ class PixelWindows(Dataset):
             for start in range(tile["start_timebin"], tile["end_timebin"], width):
                 valid = min(width, tile["end_timebin"] - start)
                 target = np.zeros((mels, width), np.float32)
-                for box in row["boxes"]:
+                # Paint uncertain regions first so target/chorus overlaps remain positive.
+                boxes = sorted(row["boxes"], key=lambda b: b.get("label") != "uncertain_vocalization") if ignore_uncertain else row["boxes"]
+                for box in boxes:
                     left, right = max(start, box["start_timebin"]), min(start + valid, box["end_timebin"])
                     if left < right:
-                        target[box["low_mel_bin"]:box["high_mel_bin"], left - start:right - start] = 1
+                        region = target[box["low_mel_bin"]:box["high_mel_bin"], left - start:right - start]
+                        if confidence_targets:
+                            confidence = float(box["confidence"])
+                            if not np.isfinite(confidence) or not 0 <= confidence <= 1:
+                                raise ValueError("box confidence must be finite and in [0, 1]")
+                            np.maximum(region, confidence, out=region)
+                        else:
+                            region[:] = -1 if ignore_uncertain and box.get("label") == "uncertain_vocalization" else 1
                 self.windows.append((row, start, valid, target))
 
     def __getitem__(self, index):
@@ -76,3 +87,11 @@ class PixelWindows(Dataset):
 
     def __len__(self):
         return len(self.windows)
+
+    def supervision_counts(self):
+        valid = sum(length * target.shape[0] for _, _, length, target in self.windows)
+        ignored = sum(int((target[:, :length] < 0).sum()) for _, _, length, target in self.windows)
+        positive = sum(int((target[:, :length] == 1).sum()) for _, _, length, target in self.windows)
+        empty = sum(bool((target[:, :length] < 0).all()) for _, _, length, target in self.windows)
+        return dict(valid_pixels=valid, ignored_pixels=ignored, supervised_pixels=valid - ignored,
+            positive_pixels=positive, background_pixels=valid - ignored - positive, fully_ignored_windows=empty)
