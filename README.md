@@ -31,6 +31,16 @@ peak probability). Inference is 32 kHz, 128 mel bins (20–16,000 Hz), 5-s windo
 calibrated on Powdermill for SongMAE-Large). The backbone is fetched from Hugging Face
 (`georgeven/songmae-{micro,base,large}-32x1`) unless `--backbone` names a local copy.
 
+### Example
+
+![Black Wheatear, XC839867: spectrogram and detected regions](docs/example-XC839867-black-wheatear.png)
+
+Black Wheatear, [XC839867](https://xeno-canto.org/839867), not used in training: mel spectrogram
+(top) and regions detected by SongMAE-Large (bottom, threshold 0.04). The detectors are on
+Hugging Face as [georgeven/songmae-{micro,base,large}-32x1-bird-detector](https://huggingface.co/georgeven/songmae-large-32x1-bird-detector).
+Recording by Esperanza Poveda, [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/);
+the image is an adaptation under the same license.
+
 ## Pipeline
 
 | Stage | Scripts |
