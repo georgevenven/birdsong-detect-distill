@@ -20,13 +20,6 @@ PYTHONPATH=src:scripts python scripts/predict.py recording.wav \
     --checkpoint large_25000_s0.pt --out predictions/
 ```
 
-Writes `predictions/recording.npz` (probability and mask, 128 mel bins × 5 ms frames) and
-`predictions/recording.csv` (one row per detected region: start/end seconds, low/high Hz,
-peak probability). Inference is 32 kHz, 128 mel bins (20–16,000 Hz), 5-s windows with
-2.5-s overlap, Gaussian smoothing σ = (2 bins, 3 frames), and `--threshold` (default 0.04,
-calibrated on Powdermill for SongMAE-Large). The backbone is fetched from Hugging Face
-(`georgeven/songmae-{micro,base,large}-32x1`) unless `--backbone` names a local copy.
-
 ### Example
 
 ![Black Wheatear, XC839867: spectrogram and detected regions](docs/example-XC839867-black-wheatear.png)
