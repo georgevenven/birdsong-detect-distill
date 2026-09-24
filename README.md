@@ -1,8 +1,7 @@
 # birdsong-detect-distill
 
-Time-frequency bird vocalization detection by distillation: a vision-language model
-(Qwen3.8-27B) boxes vocalizations on spectrograms, and those boxes train a SongMAE encoder
-with a linear detection head that predicts a per-pixel vocalization probability.
+**TL;DR:** Fine-tuned SongMAE that detects birdsong in spectrograms, trained on labels from a
+vision-language model.
 
 ## Install
 
