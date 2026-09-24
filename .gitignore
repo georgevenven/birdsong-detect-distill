@@ -1,0 +1,16 @@
+# Paper-specific outputs stay on disk (Twins), out of git.
+artifacts/
+results/
+figures/
+paper/
+data/
+ops/systemd/
+ARTIFACTS.sha256
+env/*-venv.txt
+env/*-python.txt
+env/twins-gpus.txt
+scripts/figure1_candidates.py
+scripts/figure2_candidates.py
+__pycache__/
+*.pyc
+predictions/
