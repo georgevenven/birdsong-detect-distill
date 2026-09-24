@@ -11,10 +11,7 @@ python -m venv .venv
 .venv/bin/pip install -e . --no-deps
 ```
 
-`env/requirements-main.txt` pins the versions used for the paper (Python 3.12); the YOLO11
-teacher-label runs used `env/requirements-yolo-hexeberg.txt` (Ultralytics 8.3.109).
-
-Scripts import each other, so run them with `PYTHONPATH=src:scripts` from the repository root.
+Run scripts from the repository root with `PYTHONPATH=src:scripts`.
 
 ## Detect vocalizations
 
